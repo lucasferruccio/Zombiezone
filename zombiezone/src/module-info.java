@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * 
+ */
+module zombiezone {
+	requires JPlay;
+}
