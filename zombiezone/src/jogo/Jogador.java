@@ -15,7 +15,15 @@ public class Jogador extends Ator{
 		this.y = y;
 		this.setTotalDuration(2000); //Tempo em milisegundos que para mudar os frames
 	}
-	
+	//controle dos tiros pelo jogador
+	ControleTiros tiros = new ControleTiros();
+	public void atirar(Window janela, Scene cena, Keyboard teclado) {
+		
+		if(teclado.KeyDown(KeyEvent.VK_A)) {
+			tiros.adicinaTiro(x, y, direcao, cena);
+		}
+		tiros.run();
+	}
 	//Movimentacao do jogador
 	public void mover(Window janela, Keyboard teclado) {
 		
