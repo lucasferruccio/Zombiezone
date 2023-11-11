@@ -1,6 +1,7 @@
 package jogo;
 
 import jplay.Sprite;
+import jplay.URL;
 
 public class Tiro extends Sprite {
 	
@@ -8,14 +9,14 @@ public class Tiro extends Sprite {
 	public static final int LEFT = 1, RIGHT = 2, STOP = 3, UP = 4, DOWN = 5;
 	
 	//Atributos
-	protected static final int VELOCIDADE_TIRO = 20;
+	protected static final int VELOCIDADE_TIRO = 1;
 	protected int caminho = STOP;
 	protected boolean movendo = false;
 	protected int direcao = 3;
 	
 	//Construtor
 	public Tiro(double x, double y, int caminho) {
-		super(URL.sprit("tiro.png"), 12);
+		super(URL.sprite("tiro.png"), 16);
 		this.caminho = caminho;
 		this.x = x;
 		this.y = y;
@@ -25,15 +26,15 @@ public class Tiro extends Sprite {
 	public void mover () {
 		if (caminho == LEFT) {
 			this.x -= VELOCIDADE_TIRO;
-			if (direção != 1) {
+			if (direcao != 1) {
 				setSequence(3,6);
 				
 			}
 			movendo = true;
 		}
-		if (caminho == Rith) {
+		if (caminho == RIGHT) {
 			this.x += VELOCIDADE_TIRO;
-			if (direção != 2) {
+			if (direcao != 2) {
 				setSequence(6,9);
 				
 			}
@@ -41,14 +42,14 @@ public class Tiro extends Sprite {
 		}
 		if (caminho == UP) {
 			this.y -= VELOCIDADE_TIRO;
-			if (direção != 4) {
+			if (direcao != 4) {
 				setSequence(9,12);
 			}
 			movendo = true;
 		}
 		if (caminho == DOWN || caminho == STOP) {
 			this.y += VELOCIDADE_TIRO;
-			if (direção != 5) {
+			if (direcao != 5) {
 				setSequence(0,3);
 			}
 			movendo = true;	

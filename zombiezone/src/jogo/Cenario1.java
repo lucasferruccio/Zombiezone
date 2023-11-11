@@ -31,8 +31,10 @@ public class Cenario1 {
 			
 			cena.draw(); //Desenha a cena
 			
+			jogador.atirar(janela, cena, teclado); //Possibilita o personagem de atirar
 			jogador.mover(janela, teclado); //Possibilita o jogador de mover pelo mapa
 			jogador.draw(); //Desenha o jogador no mapa
+			
 			
 			zumbi.perseguir(jogador.x, jogador.y); //Faz o zumbi ir atras do jogador
 			zumbi.draw(); //Desenha o zumbi na tela

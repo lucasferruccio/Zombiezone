@@ -1,6 +1,9 @@
 package jogo;
 
+import java.awt.event.KeyEvent;
+
 import jplay.Keyboard;
+import jplay.Scene;
 //import jplay.Sprite;
 import jplay.URL;
 import jplay.Window;
@@ -15,15 +18,17 @@ public class Jogador extends Ator{
 		this.y = y;
 		this.setTotalDuration(2000); //Tempo em milisegundos que para mudar os frames
 	}
-	//controle dos tiros pelo jogador
-	ControleTiros tiros = new ControleTiros();
+	
+	ControleTiros tiros = new ControleTiros(); //Instancia do objeto atirar
+	
 	public void atirar(Window janela, Scene cena, Keyboard teclado) {
-		
-		if(teclado.KeyDown(KeyEvent.VK_A)) {
-			tiros.adicinaTiro(x, y, direcao, cena);
+		//Seta a tecla para atirar
+		if (teclado.keyDown(KeyEvent.VK_SPACE)) {
+			tiros.adicionaTiro(x, y, direcao, cena);
 		}
-		tiros.run();
+		tiros.run(); //Faz o tiro andar
 	}
+	
 	//Movimentacao do jogador
 	public void mover(Window janela, Keyboard teclado) {
 		
