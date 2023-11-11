@@ -1,0 +1,19 @@
+Zombiezone
+Componentes do grupo:
+- Gabriel Salgado
+- Lucas Paiva
+- Pedro César
+- Felipe Marinho
+Descrição Textual do projeto:
+O projeto consiste em um jogo (2D visto de cima) com temática de zumbis,
+inspirado no Call of Duty Zombies. O jogo trás um sistema de sobrevivência
+em rounds de ondas de inimigos.
+O personagem principal ganha pontos a cada zumbi derrubado; cada round
+com um número maior de inimigos e, consequentemente, mais desafiador.
+O mapa do jogo é dividido em salas, cada uma contendo seus respectivos
+pontos de spawn de inimigos, podendo ser através de barricadas, janelas e
+portas (todas podendo ser concertadas pelo player).
+O jogo não contém lore, ou seja, é apenas um arcade.
+O personagem poderá comprar armas espalhadas pelo mapa, que podem
+gerar mais dano, maior cadência, etc.
+O objetivo final é sobreviver o maior tempo possível.
