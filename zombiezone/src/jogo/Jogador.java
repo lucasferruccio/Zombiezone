@@ -24,7 +24,7 @@ public class Jogador extends Ator{
 	public void atirar(Window janela, Scene cena, Keyboard teclado) {
 		//Seta a tecla para atirar
 		if (teclado.keyDown(KeyEvent.VK_SPACE)) {
-			tiros.adicionaTiro(x, y, direcao, cena);
+			tiros.criarTiro(x, y, direcao, cena);
 		}
 		tiros.run(); //Faz o tiro andar
 	}

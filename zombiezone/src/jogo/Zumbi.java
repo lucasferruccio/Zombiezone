@@ -9,7 +9,7 @@ public class Zumbi extends Ator{
 		this.x = x;
 		this.y = y;
 		this.setTotalDuration(2000); //Tempo em milisegundos que para mudar os frames
-		this.velocidade = 0.02;
+		this.velocidade = 0.2;
 	}
 	
 	public void perseguir(double x, double y) {

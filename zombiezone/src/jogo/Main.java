@@ -25,7 +25,7 @@ public class Main {
 			
 			//Reconhece que a tecla ENTER foi apertada 
 			if(teclado.keyDown(Keyboard.ENTER_KEY)) {
-				new Cenario1(janela); //Cria a janela passando a janela como parametro 
+				new MapaPrincipal(janela); //Cria a janela passando a janela como parametro 
 			}
 		}
 		

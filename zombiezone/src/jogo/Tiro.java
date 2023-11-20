@@ -6,7 +6,7 @@ import jplay.URL;
 public class Tiro extends Sprite {
 	
 	//Direção do tiro
-	public static final int LEFT = 1, RIGHT = 2, STOP = 3, UP = 4, DOWN = 5;
+	public static final int LEFT = 1, RIGHT = 2, UP = 3, DOWN = 4, STOP = 5;
 	
 	//Atributos
 	protected static final int VELOCIDADE_TIRO = 1;
@@ -27,7 +27,7 @@ public class Tiro extends Sprite {
 		if (caminho == LEFT) {
 			this.x -= VELOCIDADE_TIRO;
 			if (direcao != 1) {
-				setSequence(3,6);
+				setSequence(4,7);
 				
 			}
 			movendo = true;
@@ -35,7 +35,7 @@ public class Tiro extends Sprite {
 		if (caminho == RIGHT) {
 			this.x += VELOCIDADE_TIRO;
 			if (direcao != 2) {
-				setSequence(6,9);
+				setSequence(8,11);
 				
 			}
 			movendo = true;
@@ -43,7 +43,7 @@ public class Tiro extends Sprite {
 		if (caminho == UP) {
 			this.y -= VELOCIDADE_TIRO;
 			if (direcao != 4) {
-				setSequence(9,12);
+				setSequence(12,15);
 			}
 			movendo = true;
 		}
@@ -54,6 +54,8 @@ public class Tiro extends Sprite {
 			}
 			movendo = true;	
 		}
+		
+		
 		if (movendo) {
 			update();
 			movendo = false;
