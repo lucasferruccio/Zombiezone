@@ -17,4 +17,3 @@ public class TiroFuzil extends ControleTiros{
 		return municoes;
 	}
 }
-//Opa
