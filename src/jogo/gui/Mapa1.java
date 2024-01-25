@@ -14,10 +14,33 @@ public class Mapa1 extends MapaControle{
 			{850,850,850,850},
 			{200,300,250,110}
 	};
-
+	
+	private boolean portaMapa2 = false;
+	
+	private boolean portaMapa3 = false;
 	
 	//Construtores:
 	
+	public int[][] getPontosSpawn() {
+		return pontosSpawn;
+	}
+
+	public boolean getPortaMapa2() {
+		return portaMapa2;
+	}
+
+	public void setPortaMapa2(boolean portaMapa2) {
+		this.portaMapa2 = portaMapa2;
+	}
+
+	public boolean getPortaMapa3() {
+		return portaMapa3;
+	}
+
+	public void setPortaMapa3(boolean portaMapa3) {
+		this.portaMapa3 = portaMapa3;
+	}
+
 	//Construtor para primeira inicialização do mapa
 	public Mapa1(Window window) {
 		janela = window; 
@@ -27,8 +50,8 @@ public class Mapa1 extends MapaControle{
 		cena.addOverlay(jogador); //Adiciona o jogador no mapa
 		teclado = janela.getKeyboard(); //Possibilita a leitura do teclado
 		mapaAtual = 1;
-		qtdZumbiMax = 15;
-		qtdZumbiVivos = 15;
+		qtdZumbiMax = 4;
+		qtdZumbiVivos = 4;
 		adicionarZumbis(pontosSpawn); //Cria os primeiros zumbis
 		run(); //Chama o loop infinito para iniciar o jogo
 	}
@@ -47,10 +70,6 @@ public class Mapa1 extends MapaControle{
 		mapaAtual = 1;
 		run(); //Chama o loop infinito para iniciar o jogo
 	}
-	
-	
-	
-	
 	
 	
 	//Loop do jogo

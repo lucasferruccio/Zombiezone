@@ -16,12 +16,13 @@ import jplay.URL;
 import jplay.Window;
 
 public class Jogador extends Ator{
+	Font fonte = new Font("arial", Font.BOLD, 15);
 	
 	private double energia = 200;
 	private double pontuacao = 0;
 	
 	//ARMAS: 1 -> PISTOLA / 2 -> FUZIL / 3 -> ESPINGARDA
-	private boolean[] armas = {true, true, false}; //A posição é a arma e a chave é se o personagem possui ou não a arma, por padrão ele só possui a pistola
+	private boolean[] armas = {true, true, true}; //A posição é a arma e a chave é se o personagem possui ou não a arma, por padrão ele só possui a pistola
 	private int armaAtual = 1;
 	
 	//Instância da classe de colisões de itens
@@ -133,10 +134,7 @@ public class Jogador extends Ator{
 					if (colisao.portaEntradaMapa2(this, objeto)) {
 						new Mapa2(janela, this);
 					}
-				}
-				
-				//Colisao Mapa2:
-				if(codigoMapa == 2) {
+				} else if(codigoMapa == 2) {
 					//Checa a colisao com a porta para voltar ao Mapa 1
 					if (colisao.portaSaidaMapa2(this, objeto)) {
 						new Mapa1(janela, this);
@@ -147,7 +145,6 @@ public class Jogador extends Ator{
 	}
 	
 	//Status:
-	Font fonte = new Font("arial", Font.BOLD, 15);
 	
 	public void status(Window janela) {
 		//Desenha a vida na tela

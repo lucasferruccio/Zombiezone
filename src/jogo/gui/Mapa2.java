@@ -38,12 +38,10 @@ public class Mapa2 extends MapaControle {
 			jogador.draw();
 			jogador.status(janela);
 			
-
 			//System.out.println("x:" + jogador.x);
 			//System.out.println("y:" + jogador.y);
 			
-			//Checa as interações do persongaem com o mapa
-			jogador.interacao(cena, teclado, janela, mapaAtual);
+			
 			
 			//Checa se ainda existem zumbis vivos
 			if (qtdZumbiVivos != 0) {
@@ -63,7 +61,6 @@ public class Mapa2 extends MapaControle {
 						zumbis.get(j).perseguir(jogador.x, jogador.y, zumbis); //Possibilita o zumbi ir atras do jogador
 						zumbis.get(j).atacar(jogador); //Possibilita o zumbi de atacar o personagem
 						zumbis.get(j).draw(); //Desenha o zumbi na tela
-						
 					}
 				}
 			} else {
@@ -72,8 +69,13 @@ public class Mapa2 extends MapaControle {
 				qtdZumbiVivos = qtdZumbiMax;
 				adicionarZumbis(pontosSpawn);
 			}
-
-			janela.delay(20);
+			
+			jogador.trocarArma(teclado);
+			
+			//Checa as interações do persongaem com o mapa
+			jogador.interacao(cena, teclado, janela, mapaAtual);
+			
+			janela.delay(10);
 			janela.update(); //E atualiza a janela
 		}
 	}

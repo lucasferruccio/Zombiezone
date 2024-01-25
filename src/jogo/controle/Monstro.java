@@ -2,16 +2,28 @@ package jogo.controle;
 
 import java.util.ArrayList;
 
-public class Zumbi extends Monstro{
-	
-	private double energia = 100;
-	private double ataque = 1;
+import jplay.URL;
 
-	public Zumbi(int x, int y) {
-		super("zumbi.png");
-		this.x = x;
-		this.y = y;
-		this.velocidade = 1;
+public class Monstro extends Ator{
+	
+	private double energia;
+	private double ataque;
+
+	public Monstro(String imagem) {
+		super(URL.sprite(imagem), 16);
+		this.setTotalDuration(2000); //Tempo em milisegundos que para mudar os frames
+	}
+	
+	//Recebe o dano
+	public void atacado(double dano) {
+		this.energia -= dano;
+	}
+	
+	//Ataca o jogador caso eles entrem em colisão
+	public void atacar(Jogador jogador) {
+		if(this.collided(jogador)) {
+			jogador.atacado(ataque);
+		}
 	}
 	
 	//Retorna a quantidade de energia do zumbi
