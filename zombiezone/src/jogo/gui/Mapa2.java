@@ -1,6 +1,10 @@
 package jogo.gui;
 
 import jplay.Window;
+
+import java.util.Vector;
+
+import jogo.controle.Colisao;
 import jogo.controle.Jogador;
 import jogo.controle.MapaControle;
 import jplay.Scene;
@@ -32,48 +36,53 @@ public class Mapa2 extends MapaControle {
 	
 	
 	private void run() {
+		Vector<?> objetosDoMapa = MapaControle.coletarObjetosMapa(cena);
+		Colisao.preencherObjetosMapa(objetosDoMapa);
+		
 		while(true) {
 			jogador.mover(janela, teclado); //Possibilita o jogador de mover pelo mapa
 			cena.moveScene(jogador); //Move o jogador pelo mapa
 			jogador.draw();
 			jogador.status(janela);
 			
-
 			//System.out.println("x:" + jogador.x);
 			//System.out.println("y:" + jogador.y);
 			
-			//Checa as interações do persongaem com o mapa
-			jogador.interacao(cena, teclado, janela, mapaAtual);
+			
 			
 			//Checa se ainda existem zumbis vivos
-			if (qtdZumbiVivos != 0) {
+			if (qtdMonstrosVivos != 0) {
 				//Percorre todos os zumbis 
-				for (int j = 0; j < qtdZumbiVivos; j++) {
+				for (int j = 0; j < qtdMonstrosVivos; j++) {
 					//Zumbi morreu -> Deletado do ArrayList
-					if (zumbis.get(j).getEnergia() <= 0) {
-						zumbis.remove(zumbis.get(j));
-						j = qtdZumbiVivos;
-						qtdZumbiVivos -= 1;
+					if (monstros.get(j).getEnergia() <= 0) {
+						monstros.remove(monstros.get(j));
+						j = qtdMonstrosVivos;
+						qtdMonstrosVivos -= 1;
 						jogador.receberPontos();
 					} 
 					//Continua desenhando o zumbi na tela
 					else {
-						jogador.atirar(janela, cena, teclado, zumbis.get(j)); //Possibilita o personagem de acertar o zumbi
+						jogador.atirar(janela, cena, teclado, monstros.get(j)); //Possibilita o personagem de acertar o zumbi
 						jogador.recarregar(teclado);
-						zumbis.get(j).perseguir(jogador.x, jogador.y, zumbis); //Possibilita o zumbi ir atras do jogador
-						zumbis.get(j).atacar(jogador); //Possibilita o zumbi de atacar o personagem
-						zumbis.get(j).draw(); //Desenha o zumbi na tela
-						
+						monstros.get(j).perseguir(jogador.x, jogador.y, monstros); //Possibilita o zumbi ir atras do jogador
+						monstros.get(j).atacar(jogador); //Possibilita o zumbi de atacar o personagem
+						monstros.get(j).draw(); //Desenha o zumbi na tela
 					}
 				}
 			} else {
 				jogador.atirar(janela, cena, teclado, null); //Possibilita o personagem de atirarg
 				jogador.recarregar(teclado);
-				qtdZumbiVivos = qtdZumbiMax;
-				adicionarZumbis(pontosSpawn);
+				qtdMonstrosVivos = qtdMonstrosMaximo;
+				adicionarMonstros(pontosSpawn);
 			}
-
-			janela.delay(20);
+			
+			jogador.trocarArma(teclado);
+			
+			//Checa as interações do persongaem com o mapa
+			jogador.interacao(cena, teclado, janela, mapaAtual);
+			
+			janela.delay(10);
 			janela.update(); //E atualiza a janela
 		}
 	}

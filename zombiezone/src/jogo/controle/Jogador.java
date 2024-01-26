@@ -2,30 +2,27 @@ package jogo.controle;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Point;
 import java.awt.event.KeyEvent;
-import java.util.Vector;
-
 import jogo.gui.Tiros;
 import jogo.gui.Mapa1;
 import jogo.gui.Mapa2;
 import jplay.Keyboard;
 import jplay.Scene;
-import jplay.TileInfo;
 import jplay.URL;
 import jplay.Window;
 
 public class Jogador extends Ator{
+	Font fonte = new Font("arial", Font.BOLD, 15);
 	
 	private double energia = 200;
 	private double pontuacao = 0;
 	
-	//ARMAS: 1 -> PISTOLA / 2 -> FUZIL / 3 -> ESPINGARDA
-	private boolean[] armas = {true, true, false}; //A posição é a arma e a chave é se o personagem possui ou não a arma, por padrão ele só possui a pistola
+	//PORTAS: 0 -> porta de cima / 1 -> porta de baixo
+	private boolean[] portas = {false, false};
+	//ARMAS: 1 -> PISTOLA / 2 -> FUZIL / 3 -> ESPINGARDA\
 	private int armaAtual = 1;
-	
-	//Instância da classe de colisões de itens
-	Colisao colisao = new Colisao();
+	private boolean[] armas = {true, true, true}; //A posição é a arma e a chave é se o personagem possui ou não a arma, por padrão ele só possui a pistola
+
 	Tiros tiros = new Tiros(); //Instancia do objeto atirar e recarregar 
 	
 	public double getEnergia() {
@@ -108,46 +105,78 @@ public class Jogador extends Ator{
 	
 	//Interagir com objetos do mapa
 	public void interacao(Scene cena, Keyboard teclado, Window janela, int codigoMapa) {
-		if (teclado.keyDown(Keyboard.ENTER_KEY)) {
-			//Area de interação do personagem
-			Point posicaoMinimo = new Point((int) this.x, (int) this.y);
-			Point posicaoMaximo = new Point((int) (this.x + this.width), (int) (this.y + this.height));
-	
-			//System.out.println(posicaoMinimo);
-			//System.out.println(posicaoMaximo);
-			
-			//Pega os tiles que o personagem esta colidindo 
-			Vector<?> objetosDoCenário = cena.getTilesFromRect(posicaoMinimo, posicaoMaximo);
-	
-			//System.out.println(objetosDoCenário.size());
-			//Loop para percorrer todos os objetos do cenário que colidem com a área do peersonagem
-			for (int i = 0; i < objetosDoCenário.size(); i++) {
-				//Pega o objeto
-				TileInfo objeto = (TileInfo) objetosDoCenário.elementAt(i);
-				
-				
-				//Colisao Mapa 1:
-				
-				if(codigoMapa == 1) {
-					//Checa colisao com a porta para Mapa 2
-					if (colisao.portaEntradaMapa2(this, objeto)) {
+		//Checa com a colisao com a porta1(A porta de cima no mapa1 e a unica porta nos outros mapas)
+		if(Colisao.colisaoPorta1(this)) {
+			//Se o personagem ja tiver desbloqueado a porta ele entra caso contrario aparece uma mensagem para ele comprar
+			if (portas[0]) {
+				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
+					//Ir para o Mapa1
+					if(codigoMapa == 1) {
 						new Mapa2(janela, this);
-					}
-				}
-				
-				//Colisao Mapa2:
-				if(codigoMapa == 2) {
-					//Checa a colisao com a porta para voltar ao Mapa 1
-					if (colisao.portaSaidaMapa2(this, objeto)) {
+					} 
+					//Sair do Mapa1 ou Mapa2
+					else if(codigoMapa == 2 || codigoMapa == 3) {
 						new Mapa1(janela, this);
 					}
+				} else {
+					//Instrução na tela
+					janela.drawText("Clique ENTER para entrar", 300, 300, Color.green, fonte);
+				}
+			} else {
+				//Instrução na tela
+				janela.drawText("Clique ENTER para liberar (100 pontos)", 270, 300, Color.green, fonte);
+				//Compra a liberação da porta
+				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
+					if(this.pontuacao >= 100) {
+						portas[0] = true;
+						this.pontuacao -= 100;
+					} else {
+						//Tocar som de negado
+					}
+				}
+			}
+		}
+		//Checa a colisao com a porta para o Mapa3
+		if(Colisao.colisaoPorta2(this)) {
+			//Checa se o personagem ja liberou a porta
+			if (portas[1]) {
+				//Aperte enter para ir pro Mapa3
+				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
+					//new Mapa3(janela, this);
+				} else {
+					//Instrução na tela
+					janela.drawText("Clique ENTER para entrar", 300, 300, Color.green, fonte);
+				}
+			} else {
+				//Instrução na tela
+				janela.drawText("Clique ENTER para entrar", 270, 300, Color.green, fonte);
+				//Compra a liberação da porta
+				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
+					if(this.pontuacao >= 100) {
+						portas[0] = true;
+						this.pontuacao -= 100;
+					} else {
+						//Tocar som de negado
+					}
+				}
+			}
+		}
+		if (Colisao.colisaoItem(this)) {
+			//Instrução na tela
+			janela.drawText("Clique ENTER para comprar 50 de vida (100 pontos)", 230, 300, Color.green, fonte);
+			//Compra a liberação da porta
+			if (teclado.keyDown(Keyboard.ENTER_KEY)) {
+				if(this.pontuacao >= 100) {
+					this.energia += 100;
+					this.pontuacao -= 100;
+				} else {
+					//Tocar som de negado
 				}
 			}
 		}
 	}
 	
 	//Status:
-	Font fonte = new Font("arial", Font.BOLD, 15);
 	
 	public void status(Window janela) {
 		//Desenha a vida na tela

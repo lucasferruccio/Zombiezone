@@ -47,12 +47,7 @@ public class Tiros {
 					TiroPistola.setMunicoes(municoes - 1);
 				}
 				tiros.addFirst(tiro);
-			} else {
-				System.out.println("Recarregando");
-			}
-			
-		} else {
-			System.out.println("Sem munição");
+			} 
 		}
 	}
 	
