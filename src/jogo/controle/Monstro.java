@@ -6,8 +6,8 @@ import jplay.URL;
 
 public class Monstro extends Ator{
 	
-	private double energia;
-	private double ataque;
+	protected double energia;
+	protected double ataque;
 
 	public Monstro(String imagem) {
 		super(URL.sprite(imagem), 16);
@@ -31,13 +31,14 @@ public class Monstro extends Ator{
 		return this.energia;
 	}
 	
-	public void perseguir(double x, double y, ArrayList<Zumbi> zumbis) {
-		for (int j = 0; j < zumbis.size(); j++) {
-			Zumbi zumbi = zumbis.get(j);
-			if (!this.equals(zumbi) && this.collided(zumbi)){
+	//Faz com que o monstro percorra o jogador
+	public void perseguir(double x, double y, ArrayList<Monstro> monstros) {
+		for (int j = 0; j < monstros.size(); j++) {
+			Monstro monstro = monstros.get(j);
+			if (!this.equals(monstro) && this.collided(monstro)){
 				//System.out.println("Colidindo");
 				this.velocidade = 1;
-				if (this.x == zumbi.x && this.y == zumbi.y) {
+				if (this.x == monstro.x && this.y == monstro.y) {
 					this.x += 40;
 				}
 			} else {
@@ -80,8 +81,5 @@ public class Monstro extends Ator{
 			update();
 			movendo = false;
 		}
-		
-		
 	}
-
 }
