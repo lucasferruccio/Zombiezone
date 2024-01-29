@@ -37,7 +37,6 @@ public class Main {
 				new Mapa1(janela); //Cria a janela passando a janela como parametro 
 			}
 		}
-		
+		//Comentario
 	}
-
 }
