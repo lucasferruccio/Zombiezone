@@ -2,7 +2,6 @@ package jogo.gui;
 
 import jplay.GameImage;
 import jplay.Keyboard;
-import jplay.URL;
 import jplay.Window;
 
 public class Menu {
@@ -15,7 +14,7 @@ public class Menu {
 	public Menu(Window janela) {
 		this.janela = janela;
 		this.teclado = janela.getKeyboard(); //Reconhece o teclado
-		this.plano = new GameImage(URL.sprite("menu.png")); //Adiciona uma imgaem de fundo
+		this.plano = new GameImage("src/recursos/cenarios/menu.png"); //Adiciona uma imgaem de fundo
 		run();
 	}
 	
@@ -31,7 +30,7 @@ public class Menu {
 	        }
 	        //Espaço para ir para o score board
 	        if (teclado.keyDown(Keyboard.SPACE_KEY)) {
-	            new ScoreJogo(janela);
+	            new InterfaceScore(janela);
 	              
 	                                                  }
 	                   }

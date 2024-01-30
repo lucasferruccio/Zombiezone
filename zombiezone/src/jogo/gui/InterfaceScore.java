@@ -6,11 +6,10 @@ import java.awt.Font;
 import jogo.repositorio.Score;
 import jplay.GameImage;
 import jplay.Keyboard;
-import jplay.URL;
 import jplay.Window;
 
 
-public class ScoreJogo {
+public class InterfaceScore {
 	//atributos
 	private GameImage plano;
 	private String[]nomes = new String[10];
@@ -20,11 +19,11 @@ public class ScoreJogo {
 	Font fonte = new Font("arial", Font.BOLD, 20);
 	
 	//Construtor
-	public ScoreJogo(Window janela) {
+	public InterfaceScore(Window janela) {
 		Score.leituradedados(); //Faz a leitura do arquivo
 		this.janela = janela;
 		this.teclado = janela.getKeyboard(); //Pega o teclado
-		this.plano = new GameImage(URL.sprite("ranking.png"));
+		this.plano = new GameImage("src/recursos/cenarios/ranking.png");
 		run();
 	}
 	
