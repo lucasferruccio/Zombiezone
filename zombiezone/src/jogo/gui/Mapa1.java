@@ -53,8 +53,8 @@ public class Mapa1 extends MapaControle{
 		cena.addOverlay(jogador); //Adiciona o jogador no mapa
 		teclado = janela.getKeyboard(); //Possibilita a leitura do teclado
 		mapaAtual = 1;
-		qtdMonstrosMaximo = 0;
-		qtdMonstrosVivos = 0;
+		qtdMonstrosMaximo = 5;
+		qtdMonstrosVivos =3;
 		adicionarMonstros(pontosSpawn); //Cria os primeiros zumbis
 		run(); //Chama o loop infinito para iniciar o jogo
 	}
@@ -108,7 +108,7 @@ public class Mapa1 extends MapaControle{
 						jogador.atirar(janela, cena, teclado, monstros.get(j)); //Possibilita o personagem de acertar o zumbi
 						jogador.recarregar(teclado);
 						monstros.get(j).perseguir(jogador.x, jogador.y, monstros); //Possibilita o zumbi ir atras do jogador
-						monstros.get(j).atacar(jogador); //Possibilita o zumbi de atacar o personagem
+						monstros.get(j).atacar(jogador,janela); //Possibilita o zumbi de atacar o personagem
 						monstros.get(j).draw(); //Desenha o zumbi na tela
 					}
 				}

@@ -66,7 +66,7 @@ public class Mapa2 extends MapaControle {
 						jogador.atirar(janela, cena, teclado, monstros.get(j)); //Possibilita o personagem de acertar o zumbi
 						jogador.recarregar(teclado);
 						monstros.get(j).perseguir(jogador.x, jogador.y, monstros); //Possibilita o zumbi ir atras do jogador
-						monstros.get(j).atacar(jogador); //Possibilita o zumbi de atacar o personagem
+						monstros.get(j).atacar(jogador, janela); //Possibilita o zumbi de atacar o personagem
 						monstros.get(j).draw(); //Desenha o zumbi na tela
 					}
 				}

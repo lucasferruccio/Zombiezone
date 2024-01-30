@@ -3,6 +3,7 @@ package jogo.controle;
 import java.util.ArrayList;
 
 import jplay.URL;
+import jplay.Window;
 
 public class Monstro extends Ator{
 	
@@ -20,9 +21,9 @@ public class Monstro extends Ator{
 	}
 	
 	//Ataca o jogador caso eles entrem em colisão
-	public void atacar(Jogador jogador) {
+	public void atacar(Jogador jogador,Window janela) {
 		if(this.collided(jogador)) {
-			jogador.atacado(ataque);
+			jogador.atacado(ataque,janela);
 		}
 	}
 	

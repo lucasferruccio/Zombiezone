@@ -1,5 +1,4 @@
 package jogo.controle;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
@@ -10,12 +9,18 @@ import jplay.Keyboard;
 import jplay.Scene;
 import jplay.URL;
 import jplay.Window;
+import java.util.Scanner;
+
+import jogo.gui.Final;
+import jogo.gui.InterfaceJogo;
 
 public class Jogador extends Ator{
 	Font fonte = new Font("arial", Font.BOLD, 15);
-	
+	private Score tabela = new Score();
+	Scanner scanner = new Scanner(System.in);
+	private String nome;
 	private double energia = 200;
-	private double pontuacao = 0;
+	private double pontuacao = 1800;
 	
 	//PORTAS: 0 -> porta de cima / 1 -> porta de baixo
 	private boolean[] portas = {false, false};
@@ -77,12 +82,16 @@ public class Jogador extends Ator{
 	}
 	
 	//Recebe o dano do zumbi
-	public void atacado(double dano) {
+	public void atacado(double dano, Window janela) {
 		this.energia -= dano;
 		//Fecha o jogo caso o jogador fique sem vida
 		if(this.energia <= 0) {
 			System.out.println("Pontuação: " + this.pontuacao);
-			System.exit(0);
+			System.out.println("Como você gostaria de ser lembrado:");
+			nome = scanner.next();
+			tabela.sobrescrever(pontuacao,nome);
+			tabela.printar();
+			new Final(janela);
 		}
 	}
 	
