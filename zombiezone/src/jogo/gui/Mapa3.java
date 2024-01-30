@@ -67,6 +67,7 @@ public class Mapa3 extends MapaControle {
 					}
 				}
 			} else {
+				rodada++;
 				qtdMonstrosVivos = qtdMonstrosMaximo;
 				adicionarMonstros(pontosSpawn);
 			}

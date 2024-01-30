@@ -15,7 +15,7 @@ import jogo.gui.InterfaceJogo;
 
 public class Jogador extends Ator{
 	
-	private Score tabela = new Score();
+	
 	private String nome;
 	private double energia = 200;
 	private double pontuacao = 1000;
@@ -24,10 +24,10 @@ public class Jogador extends Ator{
 	//ARMAS: 1 -> PISTOLA / 2 -> FUZIL / 3 -> ESPINGARDA\
 	private int armaAtual = 1;
 	private boolean[] armas = {true, false, false}; //A posição é a arma e a chave é se o personagem possui ou não a arma, por padrão ele só possui a pistola
-
-	Scanner scanner = new Scanner(System.in);
-	InterfaceJogo mensagemTela = new InterfaceJogo();
-	Tiros tiros = new Tiros(); //Instancia do objeto para atirar e recarregar
+	private Scanner scanner = new Scanner(System.in);
+	private Score tabela = new Score();
+	private InterfaceJogo mensagemTela = new InterfaceJogo();
+	private Tiros tiros = new Tiros(); //Instancia do objeto para atirar e recarregar
 	
 	public double getEnergia() {
 		return energia;

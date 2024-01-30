@@ -1,7 +1,7 @@
 package jogo.controle;
 
 public class TiroPistola extends ControleTiros{
-	static int municoes = 12;
+	static int municoes = 20;
 		
 	public TiroPistola(double x, double y, int caminho) {
 		super(x, y, caminho);
@@ -20,6 +20,6 @@ public class TiroPistola extends ControleTiros{
 	}
 	
 	public static void recargaArma() {
-		municoes = 6;
+		municoes = 20;
 	}
 }

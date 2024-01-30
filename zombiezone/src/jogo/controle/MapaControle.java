@@ -22,6 +22,7 @@ public class MapaControle {
 	protected static int qtdMonstrosMaximo;
 	protected static int qtdMonstrosVivos;
 	protected static int qtdZumbis;
+	protected static int rodada;
 	
 	//Adiciona os zumbis na tela
 	protected void adicionarMonstros(int[][] pontosSpawn) {
@@ -78,9 +79,20 @@ public class MapaControle {
 			}
 		}
 	}
-	{
-		
+	
+	//Sistema de rodadas
+	public static void rodadaFim() {
+		rodada++;
+		//A cada 4 rodadas mais um zumbi e a cada 5 rodadas mais um cachorro
+		if(rodada % 4 == 0) {
+			qtdMonstrosMaximo++;
+			qtdZumbis++;
+		} 
+		if(rodada % 5 == 0) {
+			qtdMonstrosMaximo++;
+		}
 	}
+	
 	protected static Vector<?> coletarObjetosMapa(Scene cena) {
 		Point posicaoMinimo = new Point(0, 0);
 		Point posicaoMaximo = new Point(800, 480);

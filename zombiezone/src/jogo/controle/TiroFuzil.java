@@ -32,8 +32,8 @@ public class TiroFuzil extends ControleTiros{
 	public static void recargaArma() {
 		if (municoesTotais > 0) {
 			//Toda recarga diminui 6 balas totais
-			municoesTotais -= 30;
-			municoes = 30;
+			municoesTotais -= 40;
+			municoes = 40;
 		}
 	}
 }	

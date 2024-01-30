@@ -9,11 +9,12 @@ public class Main {
 
 	public static void main(String[] args) {
 		
+		//Atributos
 		//Construindo a janela do jogo
 		Window janela = new Window(800, 480); //Instanciando uma janela e setando o tamanho
-		
 		//Faz o reconhecimento de que o teclado foi apertado
 		Keyboard teclado = janela.getKeyboard();
+		
 		//Adiciona a tecla R
 		teclado.addKey(KeyEvent.VK_R);
 		//Adiciona a tecla 1
