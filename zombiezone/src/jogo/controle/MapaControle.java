@@ -23,19 +23,24 @@ public class MapaControle {
 	protected static ArrayList<Monstro> monstros = new ArrayList<>();
 	protected static int qtdMonstrosMaximo;
 	protected static int qtdMonstrosVivos;
+	protected static int qtdZumbis;
 	
 	//Adiciona os zumbis na tela
 	protected void adicionarMonstros(int[][] pontosSpawn) {
 		//System.out.println(pontosSpawn[0].length);
 		//Gerador randomico do spawn dos zumbis
 		Random gerador = new Random();
+		Monstro monstroAux;
 		//Loop para gerar os zumbis
 		for (int i = 0; i < qtdMonstrosMaximo; i++) {
 			//Gera o indice da posição onde o zumbi vai nascer
 			int indicePosicaoZumbi = gerador.nextInt(pontosSpawn[0].length);
 			//Cria o zumbi na posição 
-			Monstro monstroAux = new Zumbi(pontosSpawn[0][indicePosicaoZumbi], pontosSpawn[1][indicePosicaoZumbi]);
-			
+			if (i < qtdZumbis) {
+				monstroAux = new Zumbi(pontosSpawn[0][indicePosicaoZumbi], pontosSpawn[1][indicePosicaoZumbi]);
+			} else {
+				monstroAux = new Cachorro(pontosSpawn[0][indicePosicaoZumbi], pontosSpawn[1][indicePosicaoZumbi]);
+			}
 			//Adiciona o zumbi na lista
 			monstros.add(monstroAux);
 		}
