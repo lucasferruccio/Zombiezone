@@ -17,32 +17,8 @@ public class Mapa1 extends MapaControle{
 			{200,300,250,110}
 	};
 	
-	private boolean portaMapa2 = false;
+	//CONSTRUTORES:
 	
-	private boolean portaMapa3 = false;
-	
-	//Construtores:
-	
-	public int[][] getPontosSpawn() {
-		return pontosSpawn;
-	}
-
-	public boolean getPortaMapa2() {
-		return portaMapa2;
-	}
-
-	public void setPortaMapa2(boolean portaMapa2) {
-		this.portaMapa2 = portaMapa2;
-	}
-
-	public boolean getPortaMapa3() {
-		return portaMapa3;
-	}
-
-	public void setPortaMapa3(boolean portaMapa3) {
-		this.portaMapa3 = portaMapa3;
-	}
-
 	//Construtor para primeira inicialização do mapa
 	public Mapa1(Window window) {
 		janela = window; 
@@ -53,14 +29,15 @@ public class Mapa1 extends MapaControle{
 		teclado = janela.getKeyboard(); //Possibilita a leitura do teclado
 		mapaAtual = 1;
 
-		qtdMonstrosMaximo = 5;
+		qtdMonstrosMaximo = 3;
 		qtdMonstrosVivos =3;
-		qtdZumbis = 0;
+		qtdZumbis = 3;
 
 		adicionarMonstros(pontosSpawn); //Cria os primeiros zumbis
 		run(); //Chama o loop infinito para iniciar o jogo
 	}
 	
+	//Construtor para quando o jogador voltar para o mapa
 	public Mapa1(Window window, Jogador jogador) {
 		janela = window; 
 		cena = new Scene(); //Instancia um cena 
@@ -76,28 +53,23 @@ public class Mapa1 extends MapaControle{
 		}
 		
 		cena.addOverlay(jogador);
-		teclado = janela.getKeyboard();
-		realocarZumbis(pontosSpawn, mapaAtual);
-		mapaAtual = 1;
+		teclado = janela.getKeyboard(); //Adiciona o teclado
+		realocarZumbis(pontosSpawn, mapaAtual); //Realoca os zumbis
+		mapaAtual = 1; //Define o mapa
 		run(); //Chama o loop infinito para iniciar o jogo
 	}
 	
-	
 	//Loop do jogo
 	private void run() {
+		//Carrega os objetos do mapa no sistema
 		Vector<?> objetosDoMapa = MapaControle.coletarObjetosMapa(cena);
 		Colisao.preencherObjetosMapa(objetosDoMapa);
 		
 		while(true) {
 			jogador.mover(janela, teclado); //Possibilita o jogador de mover pelo mapa
 			cena.moveScene(jogador); //Move o jogador pelo mapa
-			jogador.draw();
-			jogador.status(janela);
-			
-			
-			//System.out.println("x:" + jogador.x);
-			//System.out.println("y:" + jogador.y);
-			
+			jogador.draw(); //Desenha o jogador
+			jogador.status(janela); //Chama a função que desenha os status do jogador
 			
 			//Checa se ainda existem zumbis vivos
 			if (qtdMonstrosVivos != 0) {
@@ -120,19 +92,18 @@ public class Mapa1 extends MapaControle{
 					}
 				}
 			} else {
-				jogador.atirar(janela, cena, teclado, null); //Possibilita o personagem de atirarg
-				jogador.recarregar(teclado);
 				qtdMonstrosVivos = qtdMonstrosMaximo;
 				adicionarMonstros(pontosSpawn);
 			}
 			
+			//Possibilita do personagem trocar de Armas
 			jogador.trocarArma(teclado);
 			
 			//Checa as interações do persongaem com o mapa
 			jogador.interacao(cena, teclado, janela, mapaAtual);
 			
-			janela.delay(10);
-			janela.update(); //E atualiza a janela
+			janela.delay(10); //Delay para diminuir a velocidade do jogo
+			janela.update();  //Atualiza a janela
 		}
 	}
 }

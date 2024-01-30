@@ -6,11 +6,12 @@ import jplay.URL;
 import jplay.Window;
 
 public class Monstro extends Ator{
-	
+	//Atributos
 	protected double energia;
 	protected double ataque;
 	protected double velocidadeMax;
-
+	
+	//Construtor
 	public Monstro(String imagem) {
 		super(URL.sprite(imagem), 16);
 		this.setTotalDuration(2000); //Tempo em milisegundos que para mudar os frames

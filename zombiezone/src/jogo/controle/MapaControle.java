@@ -12,13 +12,11 @@ import jplay.Window;
 public class MapaControle {
 
 	//Atributos
-	
 	protected Window janela;
 	protected Scene cena;  //Define o arquivo que molda o cenario
 	protected Jogador jogador;
 	protected Keyboard teclado;
 	protected Colisao colisao;
-	
 	protected static int mapaAtual; //1 -> Veio do Mapa 1, 2 -> Veio do Mapa 2, 3 -> Veio do Mapa 3
 	protected static ArrayList<Monstro> monstros = new ArrayList<>();
 	protected static int qtdMonstrosMaximo;
@@ -27,13 +25,12 @@ public class MapaControle {
 	
 	//Adiciona os zumbis na tela
 	protected void adicionarMonstros(int[][] pontosSpawn) {
-		//System.out.println(pontosSpawn[0].length);
 		//Gerador randomico do spawn dos zumbis
 		Random gerador = new Random();
 		Monstro monstroAux;
 		//Loop para gerar os zumbis
 		for (int i = 0; i < qtdMonstrosMaximo; i++) {
-			//Gera o indice da posição onde o zumbi vai nascer
+			//Gera o indice da posição onde o monstro vai surgir
 			int indicePosicaoZumbi = gerador.nextInt(pontosSpawn[0].length);
 			//Cria o zumbi na posição 
 			if (i < qtdZumbis) {
@@ -41,7 +38,7 @@ public class MapaControle {
 			} else {
 				monstroAux = new Cachorro(pontosSpawn[0][indicePosicaoZumbi], pontosSpawn[1][indicePosicaoZumbi]);
 			}
-			//Adiciona o zumbi na lista
+			//Adiciona o monstro na lista
 			monstros.add(monstroAux);
 		}
 	}

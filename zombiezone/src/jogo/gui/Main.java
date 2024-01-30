@@ -1,14 +1,8 @@
 package jogo.gui; 
 
 import java.awt.event.KeyEvent;
-
-import jplay.GameImage;
 import jplay.Keyboard;
-import jplay.URL;
 import jplay.Window;
-
-
-
 
 public class Main {
       
@@ -29,8 +23,8 @@ public class Main {
 		//Adiciona a tecla 3
 		teclado.addKey(KeyEvent.VK_3);
 		
-		Menu menu = new Menu(janela);
-		menu.run();
+		//Abre a tela de menu
+		new Menu(janela);
 		
 		
 	

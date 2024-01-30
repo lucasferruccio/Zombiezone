@@ -6,9 +6,11 @@ public class TiroFuzil extends ControleTiros{
 	
 	public TiroFuzil(double x, double y, int caminho) {
 		super(x, y, caminho);
-		this.VELOCIDADE_TIRO = 6;
+		this.velocidadeTiro = 6;
 		this.dano = 50;
 	}
+	
+	//Gets e Sets:
 	
 	public static void setMunicoes(int quantidade) {
 		municoes = quantidade;
@@ -18,15 +20,20 @@ public class TiroFuzil extends ControleTiros{
 		municoesTotais = 240;
 	}
 	
-	public static void recargaArma() {
-		municoesTotais -= 30;
-	}
-	
 	public static int getMaxMunicoes() {
 		return municoesTotais;
 	}
 	
 	public static int getMunicoes() {
 		return municoes;
+	}
+	
+	//Recarga da arma
+	public static void recargaArma() {
+		if (municoesTotais > 0) {
+			//Toda recarga diminui 6 balas totais
+			municoesTotais -= 30;
+			municoes = 30;
+		}
 	}
 }	

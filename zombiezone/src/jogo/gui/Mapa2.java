@@ -23,33 +23,30 @@ public class Mapa2 extends MapaControle {
 		janela = window; 
 		cena = new Scene(); //Instancia um cena 
 		cena.loadFromFile(URL.scenario("Mapa2.scn")); //Carrega o arquivo do cenario
+		//Setando a posição do jogador na tela:
 		this.jogador = jogador;
 		jogador.x = 386;
 		jogador.y = 451;
 		cena.addOverlay(jogador);
-		teclado = janela.getKeyboard();
-		realocarZumbis(pontosSpawn, mapaAtual);
-		mapaAtual = 2;
+		teclado = janela.getKeyboard(); //Adiciona o teclado
+		realocarZumbis(pontosSpawn, mapaAtual); //Realoca os zumbis
+		mapaAtual = 2; //Define o mapa
 		run(); //Chama o loop infinito para iniciar o jogo
 	}
 	
 	
-	
+	//Loop do jogo
 	private void run() {
+		//Carrega os objetos do mapa no sistema
 		Vector<?> objetosDoMapa = MapaControle.coletarObjetosMapa(cena);
 		Colisao.preencherObjetosMapa(objetosDoMapa);
 		
 		while(true) {
 			jogador.mover(janela, teclado); //Possibilita o jogador de mover pelo mapa
 			cena.moveScene(jogador); //Move o jogador pelo mapa
-			jogador.draw();
-			jogador.status(janela);
-			
-			//System.out.println("x:" + jogador.x);
-			//System.out.println("y:" + jogador.y);
-			
-			
-			
+			jogador.draw(); //Desenha o jogador
+			jogador.status(janela); //Chama a função que desenha os status do jogador
+
 			//Checa se ainda existem zumbis vivos
 			if (qtdMonstrosVivos != 0) {
 				//Percorre todos os zumbis 
@@ -71,19 +68,18 @@ public class Mapa2 extends MapaControle {
 					}
 				}
 			} else {
-				jogador.atirar(janela, cena, teclado, null); //Possibilita o personagem de atirarg
-				jogador.recarregar(teclado);
 				qtdMonstrosVivos = qtdMonstrosMaximo;
 				adicionarMonstros(pontosSpawn);
 			}
 			
+			//Possibilita do personagem trocar de Armas
 			jogador.trocarArma(teclado);
 			
 			//Checa as interações do persongaem com o mapa
 			jogador.interacao(cena, teclado, janela, mapaAtual);
 			
-			janela.delay(10);
-			janela.update(); //E atualiza a janela
+			janela.delay(10); //Delay para diminuir a velocidade do jogo
+			janela.update(); //Atualiza a janela
 		}
 	}
 }

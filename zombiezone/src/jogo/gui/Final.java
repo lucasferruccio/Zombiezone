@@ -4,9 +4,6 @@ import jplay.GameImage;
 import jplay.Keyboard;
 import jplay.URL;
 import jplay.Window;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
-import javax.swing.JOptionPane;
 
 public class Final {
 	//atributos
@@ -14,7 +11,7 @@ public class Final {
 	Window janela;
 	Keyboard teclado = new Keyboard();
 
-	
+	//Construtor
 	public  Final(Window janela) {
 		this.janela = janela;
 		this.plano = new GameImage(URL.sprite("alerta.png"));
@@ -22,12 +19,12 @@ public class Final {
 		run();
 	}
 
-
+	//loop da tela
 	private void run() {
 		while (true) {
 			plano.draw();
 			janela.update();
-	}
+		}
 	}
 
 }

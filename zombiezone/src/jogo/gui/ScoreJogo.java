@@ -1,62 +1,60 @@
 package jogo.gui;
 
-	import java.awt.Color;
-	import java.awt.Font;
+import java.awt.Color;
+import java.awt.Font;
 
-	
-
-import jogo.controle.Score;
+import jogo.repositorio.Score;
 import jplay.GameImage;
 import jplay.Keyboard;
 import jplay.URL;
 import jplay.Window;
 
 
-	public class ScoreJogo {
-		//atributo
-		private GameImage plano;
-		Window janela;
-		Font fonte = new Font("arial", Font.BOLD, 20);
-		private String[]nomes = new String[10];
-		private double[] pontuacoes = new double[10];
-		private Keyboard teclado;
-		
-		public ScoreJogo(Window janela) {
-			Score.leituradedados();
-			this.janela = janela;
-			this.teclado = janela.getKeyboard();
-			this.plano = new GameImage(URL.sprite("ranking.png"));
-			System.out.println("2");
-			run();
-		}
-		
-
-
-		public void printar(Window janela) {
-			nomes = Score.getNomes();
-			pontuacoes = Score.getPontuacoes();
-			int altura = 145;
-			for(int i=9;i>=0;i--) {
-				 janela.drawText(nomes[i],150,altura,Color.red,fonte);
-				 janela.drawText(String.valueOf(pontuacoes[i]),580,altura,Color.red,fonte);
-				 altura = altura + 36;
+public class ScoreJogo {
+	//atributos
+	private GameImage plano;
+	private String[]nomes = new String[10];
+	private double[] pontuacoes = new double[10];
+	private Keyboard teclado;
+	private Window janela;
+	Font fonte = new Font("arial", Font.BOLD, 20);
+	
+	//Construtor
+	public ScoreJogo(Window janela) {
+		Score.leituradedados(); //Faz a leitura do arquivo
+		this.janela = janela;
+		this.teclado = janela.getKeyboard(); //Pega o teclado
+		this.plano = new GameImage(URL.sprite("ranking.png"));
+		run();
+	}
+	
+	//Desenha os nomes e pontuações na tela
+	public void desenharNomes(Window janela) {
+		//Pega os nomes e pontuações dos jogadores
+		nomes = Score.getNomes();
+		pontuacoes = Score.getPontuacoes();
+		int altura = 145; //Altura Inicial
+		//Loop pra percorrer as pontuações
+		for(int i=9;i>=0;i--) {
+			if(!nomes[i].equalsIgnoreCase("null")) {
+				janela.drawText(nomes[i],150,altura,Color.red,fonte);
+				janela.drawText(String.valueOf(pontuacoes[i]),580,altura,Color.red,fonte);
+				altura = altura + 36;
 			}
-			 }
-		
-			public void run() {
-				while (true) {
-					plano.draw();
-					printar(janela);
-					janela.update();
-					
-			        if (teclado.keyDown(Keyboard.ESCAPE_KEY)) {
-			            new Menu(janela);
-			        }
+		}
+	 }
+	
+	//Loop da tela de pontuação
+	public void run() {
+		while (true) {
+			plano.draw();
+			desenharNomes(janela);
+			janela.update();
 			
-			                   }
-		}
-			 
-			 
-			 
-		}
+	        if (teclado.keyDown(Keyboard.ESCAPE_KEY)) {
+	            new Menu(janela);
+	        }
+	    }
+	}	 
+}
 

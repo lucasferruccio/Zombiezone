@@ -13,7 +13,8 @@ public abstract class Ator extends Sprite{
 	public Ator(String fileName, int numFrames) {
 		super(fileName, numFrames);
 	}
-
+	
+	//Gets e Sets
 	public double getVelocidade() {
 		return velocidade;
 	}

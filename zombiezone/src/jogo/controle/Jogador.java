@@ -1,8 +1,7 @@
 package jogo.controle;
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.KeyEvent;
 import jogo.gui.Tiros;
+import jogo.repositorio.Score;
 import jogo.gui.Mapa1;
 import jogo.gui.Mapa2;
 import jogo.gui.Mapa3;
@@ -12,25 +11,23 @@ import jplay.URL;
 import jplay.Window;
 import java.util.Scanner;
 import jogo.gui.Final;
+import jogo.gui.InterfaceJogo;
 
 public class Jogador extends Ator{
-	Font fonte = new Font("arial", Font.BOLD, 15);
+	
 	private Score tabela = new Score();
-	Scanner scanner = new Scanner(System.in);
 	private String nome;
 	private double energia = 200;
-
-	private double pontuacao = 1800;
-
-
-	
+	private double pontuacao = 1000;
 	//PORTAS: 0 -> porta de cima / 1 -> porta de baixo
 	private boolean[] portas = {false, false};
 	//ARMAS: 1 -> PISTOLA / 2 -> FUZIL / 3 -> ESPINGARDA\
 	private int armaAtual = 1;
 	private boolean[] armas = {true, false, false}; //A posição é a arma e a chave é se o personagem possui ou não a arma, por padrão ele só possui a pistola
 
-	Tiros tiros = new Tiros(); //Instancia do objeto atirar e recarregar 
+	Scanner scanner = new Scanner(System.in);
+	InterfaceJogo mensagemTela = new InterfaceJogo();
+	Tiros tiros = new Tiros(); //Instancia do objeto para atirar e recarregar
 	
 	public double getEnergia() {
 		return energia;
@@ -47,7 +44,7 @@ public class Jogador extends Ator{
 		this.setTotalDuration(2000); //Tempo em milisegundos que para mudar os frames
 	}
 	
-	//Gets e setters
+	//Gets e sets
 	public double getPontuacao() {
 		return pontuacao;
 	}
@@ -72,7 +69,7 @@ public class Jogador extends Ator{
 	public void atirar(Window janela, Scene cena, Keyboard teclado, Monstro inimigo) {
 		//Seta a tecla para atirar
 		if (teclado.keyDown(KeyEvent.VK_SPACE)) {
-			tiros.criarTiro(x, y, direcao, cena, this.getArma());
+			ControleTiros.criarTiro(this.x, this.y, this.direcao, cena, this.armaAtual);
 		}
 		tiros.run(janela, inimigo); //Faz o tiro andar
 	}
@@ -86,7 +83,7 @@ public class Jogador extends Ator{
 	//Recebe o dano do zumbi
 	public void atacado(double dano, Window janela) {
 		this.energia -= dano;
-		//Fecha o jogo caso o jogador fique sem vida
+		//Abre a tela final do jogo caso o jogador fique sem vida
 		if(this.energia <= 0) {
 			System.out.println("Pontuação: " + this.pontuacao);
 			System.out.println("Como você gostaria de ser lembrado:");
@@ -96,19 +93,22 @@ public class Jogador extends Ator{
 		}
 	}
 	
+	//Recarregar arma
 	public void recarregar(Keyboard teclado) {
 		//Seta a tecla para recarregar
 		if (teclado.keyDown(KeyEvent.VK_R)){
-			Tiros.recarga(this.getArma());
+			ControleTiros.recarga(this.getArma());
 		}
 	}
 	
+	
+	//Trocar a arma do personagem
 	public void trocarArma(Keyboard teclado) {
-		if(teclado.keyDown(KeyEvent.VK_1) && armas[0]) {
+		if(teclado.keyDown(KeyEvent.VK_1) && armas[0]) { //Pistola
 			this.armaAtual = 1;
-		} else if(teclado.keyDown(KeyEvent.VK_2) && armas[1]) {
+		} else if(teclado.keyDown(KeyEvent.VK_2) && armas[1]) { //Fuzil
 			this.armaAtual = 2;
-		} else if(teclado.keyDown(KeyEvent.VK_3) && armas[2]) {
+		} else if(teclado.keyDown(KeyEvent.VK_3) && armas[2]) { //Espingarda
 			this.armaAtual = 3;
 		} 
 	}
@@ -117,8 +117,12 @@ public class Jogador extends Ator{
 	public void interacao(Scene cena, Keyboard teclado, Window janela, int codigoMapa) {
 		//Checa com a colisao com a porta1(A porta de cima no mapa1 e a unica porta nos outros mapas)
 		if(Colisao.colisaoPorta1(this)) {
+			//Instrução na tela
+			mensagemTela.desbloquearPorta(janela, portas[0]);
 			//Sair do Mapa1 ou Mapa2
 			if(codigoMapa == 2 || codigoMapa == 3) {
+				//Instrução na tela
+				mensagemTela.desbloquearPorta(janela, true);
 				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 					new Mapa1(janela, this);
 				}
@@ -129,76 +133,62 @@ public class Jogador extends Ator{
 					//Ir para o Mapa1
 					if(codigoMapa == 1) {
 						new Mapa2(janela, this);
-					} 
-
-				} else {
-					//Instrução na tela
-					janela.drawText("Clique ENTER para entrar", 300, 300, Color.green, fonte);
-				}
+					}
+				} 
 			} else {
-				//Instrução na tela
-				janela.drawText("Clique ENTER para liberar (100 pontos)", 270, 300, Color.green, fonte);
 				//Compra a liberação da porta
 				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 					if(this.pontuacao >= 100) {
 						portas[0] = true;
 						this.pontuacao -= 100;
-					} else {
-						//Tocar som de negado
 					}
 				}
 			}
 		}
 		//Checa a colisao com a porta para o Mapa3
 		if(Colisao.colisaoPorta2(this)) {
+			//Instrução na tela
+			mensagemTela.desbloquearPorta(janela, portas[1]);
 			//Checa se o personagem ja liberou a porta
 			if (portas[1]) {
 				//Aperte enter para ir pro Mapa3
 				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 					new Mapa3(janela, this);
-				} else {
-					//Instrução na tela
-					janela.drawText("Clique ENTER para entrar", 300, 300, Color.green, fonte);
 				}
 			} else {
-				//Instrução na tela
-				janela.drawText("Clique ENTER para liberar (100 pontos)", 270, 300, Color.green, fonte);
 				//Compra a liberação da porta
 				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 					if(this.pontuacao >= 100) {
 						portas[1] = true;
 						this.pontuacao -= 100;
-					} else {
-						//Tocar som de negado
 					}
 				}
 			}
 		}
+		//Checa a Colisao com o item do mapa
 		if (Colisao.colisaoItem(this)) {
+			//Checa qual mapa o jogador esta
 			if (codigoMapa == 1) {
-				
-				
+				mensagemTela.mensKitMedico(janela, this.energia);
+				//Checa se a vida ja esta cheia
 				if (this.energia != 200) {
-					//Instrução na tela
-					janela.drawText("Clique ENTER para comprar 50 de vida (100 pontos)", 230, 300, Color.green, fonte);
-					//Compra a liberação da porta
+					//Compra o kit medico e aumenta a vida do jogador
 					if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 						if(this.pontuacao >= 100) {
-							if ((this.energia + 100.0) > 200.0) {
+							//Checa para nao passar da vida maxima
+							if ((this.energia + 50) > 200.0) {
 								this.energia = 200;
 							} else {
-								this.energia += 100;
+								this.energia += 50;
 							}
 							this.pontuacao -= 100;
-						} 
+						}
 					}
-				} else {
-					janela.drawText("Saude cheia", 350, 300, Color.green, fonte);
-				}
+				} 
 			} else if(codigoMapa == 2) {
+				//Instrução na tela
+				mensagemTela.mensRifle(janela, this.armas[1]);
 				if (!this.armas[1]) {
-					//Instrução na tela
-					janela.drawText("Clique ENTER para comprar o Fuzil (100 pontos)", 230, 300, Color.green, fonte);
 					//Compra o Rifle
 					if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 						if(this.pontuacao >= 100) {
@@ -207,7 +197,6 @@ public class Jogador extends Ator{
 						}
 					}
 				} else {
-					janela.drawText("Clique ENTER para comprar munição (50 pontos)", 230, 300, Color.green, fonte);
 					if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 						if(this.pontuacao >= 50) {
 							TiroFuzil.setMaxMunicoes();
@@ -216,9 +205,9 @@ public class Jogador extends Ator{
 					}
 				}
 			} else if(codigoMapa == 3) {
+				//Instrução na tela
+				mensagemTela.mensEspingarda(janela, this.armas[2]);
 				if(!this.armas[2]) {
-					//Instrução na tela
-					janela.drawText("Clique ENTER para comprar a Espinagarda (100 pontos)", 230, 300, Color.green, fonte);
 					//Compra a espingarda
 					if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 						if(this.pontuacao >= 100) {
@@ -227,7 +216,6 @@ public class Jogador extends Ator{
 						} 
 					}
 				} else {
-					janela.drawText("Clique ENTER para comprar munição (50 pontos)", 230, 300, Color.green, fonte);
 					if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 						if(this.pontuacao >= 50) {
 							TiroEspingarda.setMaxMunicoes();
@@ -245,16 +233,16 @@ public class Jogador extends Ator{
 	
 	public void status(Window janela) {
 		//Desenha a vida na tela
-		janela.drawText("Vida:" + this.energia, 0, 15, Color.green, fonte);
+		mensagemTela.energia(janela, energia);
 		//Desenha a potunação do jogador na tela
-		janela.drawText("Pontos:" + this.getPontuacao(), 0, 460, Color.green, fonte);
+		mensagemTela.pontuacao(janela, this.pontuacao);
 		//Desenha a quantidade de munição da arma em mãos
 		if (this.getArma() == 1) {
-			janela.drawText("Munições:" + TiroPistola.getMunicoes() + "/12", 0, 40, Color.green, fonte);
+			mensagemTela.infoPistola(janela, TiroPistola.getMunicoes());
 		} else if (this.getArma() == 2) {
-			janela.drawText("Munições:" + TiroFuzil.getMunicoes() + "/" + TiroFuzil.getMaxMunicoes(), 0, 40, Color.green, fonte);
+			mensagemTela.infoFuzil(janela, TiroFuzil.getMunicoes(), TiroFuzil.getMaxMunicoes());
 		} else if(this.getArma() == 3) {
-			janela.drawText("Munições:" + TiroEspingarda.getMunicoes() + "/" + TiroEspingarda.getMaxMunicoes(), 0, 40, Color.green, fonte);
+			mensagemTela.infoEspingarda(janela, TiroEspingarda.getMunicoes(), TiroEspingarda.getMaxMunicoes());
 		}
 	}
 	
