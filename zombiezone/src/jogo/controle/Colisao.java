@@ -11,6 +11,9 @@ public class Colisao {
 	
 	//Preenche os objetos de cada mapa para liberar interações
 	public static void preencherObjetosMapa(Vector<?> objetosDoMapa) {
+		porta1 = null;
+		porta2 = null;
+		item = null;
 		//Percorre os objs do mapa
 		for (int i = 0; i < objetosDoMapa.size(); i++) {
 			TileInfo objeto = (TileInfo) objetosDoMapa.elementAt(i);
@@ -18,10 +21,10 @@ public class Colisao {
 			if(objeto.id == 1) {
 				porta1 = objeto;
 				
-			} else if(objeto.id == 3) { 
+			} else if(objeto.id == 2) { 
 				porta2 = objeto;
 			}
-			else if (objeto.id == 4) {
+			else if (objeto.id == 3) {
 				item = objeto;
 			}
 		}
@@ -38,7 +41,7 @@ public class Colisao {
 	
 	//Chega a colisão do jogador com a porta 2
 	public static boolean colisaoPorta2(GameObject jogador) {
-		if (jogador.collided(porta2)) {
+		if (porta2 != null && jogador.collided(porta2)) {
 			return true;
 		} else {
 			return false;
@@ -47,7 +50,7 @@ public class Colisao {
 	
 	//Chega a colisão do jogador com a item
 	public static boolean colisaoItem(GameObject jogador) {
-		if (jogador.collided(item)) {
+		if (item != null && jogador.collided(item)) {
 			return true;
 		} else {
 			return false;

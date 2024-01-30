@@ -87,7 +87,6 @@ public class Score {
                 writer.newLine(); // Adicionando uma quebra de linha
             }
 
-            System.out.println("Arquivo sobrescrito com sucesso.");
 
         } catch (IOException e) {
             // Tratamento de exceção, caso ocorra algum problema na escrita do arquivo

@@ -2,6 +2,7 @@ package jogo.controle;
 
 public class TiroEspingarda extends ControleTiros{
 	static int municoes = 6;
+	static int municoesTotais = 30;
 	
 	public TiroEspingarda(double x, double y, int caminho) {
 		super(x, y, caminho);
@@ -11,6 +12,19 @@ public class TiroEspingarda extends ControleTiros{
 	
 	public static void setMunicoes(int quantidade) {
 		municoes = quantidade;
+	}
+	
+	public static void setMaxMunicoes() {
+		municoesTotais = 30;
+	}
+	
+	public static void recargaArma() {
+		municoesTotais -= 6;
+	}
+	
+	
+	public static int getMaxMunicoes() {
+		return municoesTotais;
 	}
 	
 	public static int getMunicoes() {

@@ -16,7 +16,7 @@ public class ControleTiros extends Sprite  {
 		
 		//Construtor
 		public ControleTiros(double x, double y, int caminho) {
-			super(URL.sprite("tiro3.png"), 16);
+			super(URL.sprite("tiro.png"), 16);
 			this.caminho = caminho;
 			this.x = x;
 			this.y = y;

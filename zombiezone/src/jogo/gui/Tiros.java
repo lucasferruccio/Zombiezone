@@ -57,14 +57,16 @@ public class Tiros {
 			TiroPistola.setMunicoes(12);
 		} else if (arma == 2){
 			TiroFuzil.setMunicoes(30);
+			TiroFuzil.recargaArma();
 		} else if (arma == 3) {
 			TiroEspingarda.setMunicoes(6);
+			TiroEspingarda.recargaArma();
 		}
 	}
 	
 	//Movimenta o disparo
-	public void run(Window janela, Ator inimigo) {
-		//Desenha os tiros na tela
+	public void run(Window janela, Monstro inimigo) {
+		//Desenha os tiros na tela\\
 		for (int j = 0; j < tiros.size(); j++) {
 			tiros.get(j).draw();
 		}
@@ -81,7 +83,7 @@ public class Tiros {
 				//Remove o tiro do array
 				tiros.remove(tiro);
 				//Efetua o dano no inimigo
-				((Zumbi) inimigo).atacado(tiro.getDano());
+				inimigo.atacado(tiro.getDano());
 			}
 			//Caso o tiro chegue no limite da tela ele e removido
 			else if (tiro.getY() > janela.getHeight() | tiro.getY() < 0) {

@@ -1,7 +1,6 @@
 package jogo.gui;
 
 import java.util.Vector;
-
 import jogo.controle.Colisao;
 import jogo.controle.Jogador;
 import jogo.controle.MapaControle;
@@ -53,8 +52,11 @@ public class Mapa1 extends MapaControle{
 		cena.addOverlay(jogador); //Adiciona o jogador no mapa
 		teclado = janela.getKeyboard(); //Possibilita a leitura do teclado
 		mapaAtual = 1;
+
 		qtdMonstrosMaximo = 5;
 		qtdMonstrosVivos =3;
+		qtdZumbis = 0;
+
 		adicionarMonstros(pontosSpawn); //Cria os primeiros zumbis
 		run(); //Chama o loop infinito para iniciar o jogo
 	}
@@ -65,8 +67,14 @@ public class Mapa1 extends MapaControle{
 		cena.loadFromFile(URL.scenario("Mapa1.scn")); //Carrega o arquivo do cenario
 		this.jogador = jogador; //Instancia o jogador na tela
 		//Setando a posição do jogador
-		jogador.x = 372;
-		jogador.y = 0;
+		if (mapaAtual == 2) {
+			jogador.x = 386;
+			jogador.y = 0;
+		} else if (mapaAtual == 3) {
+			jogador.x = 386;
+			jogador.y = 440;
+		}
+		
 		cena.addOverlay(jogador);
 		teclado = janela.getKeyboard();
 		realocarZumbis(pontosSpawn, mapaAtual);
@@ -89,7 +97,6 @@ public class Mapa1 extends MapaControle{
 			
 			//System.out.println("x:" + jogador.x);
 			//System.out.println("y:" + jogador.y);
-			
 			
 			
 			//Checa se ainda existem zumbis vivos

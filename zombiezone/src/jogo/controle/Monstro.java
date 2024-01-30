@@ -9,6 +9,7 @@ public class Monstro extends Ator{
 	
 	protected double energia;
 	protected double ataque;
+	protected double velocidadeMax;
 
 	public Monstro(String imagem) {
 		super(URL.sprite(imagem), 16);
@@ -43,7 +44,7 @@ public class Monstro extends Ator{
 					this.x += 40;
 				}
 			} else {
-				this.velocidade = 2;
+				this.velocidade = velocidadeMax;
 			}
 		}
 		

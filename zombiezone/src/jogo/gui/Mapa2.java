@@ -24,7 +24,7 @@ public class Mapa2 extends MapaControle {
 		cena = new Scene(); //Instancia um cena 
 		cena.loadFromFile(URL.scenario("Mapa2.scn")); //Carrega o arquivo do cenario
 		this.jogador = jogador;
-		jogador.x = 368;
+		jogador.x = 386;
 		jogador.y = 451;
 		cena.addOverlay(jogador);
 		teclado = janela.getKeyboard();
