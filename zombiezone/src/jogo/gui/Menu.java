@@ -1,5 +1,6 @@
 package jogo.gui;
 
+import jogo.controle.Som;
 import jplay.GameImage;
 import jplay.Keyboard;
 import jplay.Window;
@@ -15,6 +16,7 @@ public class Menu {
 		this.janela = janela;
 		this.teclado = janela.getKeyboard(); //Reconhece o teclado
 		this.plano = new GameImage("src/recursos/cenarios/menu.png"); //Adiciona uma imgaem de fundo
+		Som.playMusica("Musica_Teste.mid"); //Toca a musica tema do jogo
 		run();
 	}
 	

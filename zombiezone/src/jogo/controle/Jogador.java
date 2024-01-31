@@ -1,4 +1,5 @@
 package jogo.controle;
+
 import java.awt.event.KeyEvent;
 import jogo.gui.Tiros;
 import jogo.repositorio.Score;
@@ -97,6 +98,7 @@ public class Jogador extends Ator{
 	public void recarregar(Keyboard teclado) {
 		//Seta a tecla para recarregar
 		if (teclado.keyDown(KeyEvent.VK_R)){
+			//Som.playTiro("Áudio_Recarga_Arma");
 			ControleTiros.recarga(this.getArma());
 		}
 	}
@@ -124,6 +126,7 @@ public class Jogador extends Ator{
 				//Instrução na tela
 				mensagemTela.desbloquearPorta(janela, true);
 				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
+					//Som.playItem("Áudio_Porta.mid");
 					new Mapa1(janela, this);
 				}
 			}
@@ -132,6 +135,7 @@ public class Jogador extends Ator{
 				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 					//Ir para o Mapa1
 					if(codigoMapa == 1) {
+						//Som.playItem("Áudio_Porta.mid");
 						new Mapa2(janela, this);
 					}
 				} 
@@ -139,8 +143,11 @@ public class Jogador extends Ator{
 				//Compra a liberação da porta
 				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 					if(this.pontuacao >= 100) {
+						//Som.playItem("Áudio_Porta_Destrancando.mid");
 						portas[0] = true;
 						this.pontuacao -= 100;
+					} else {
+						//Som.playItem("Áudio_Porta_Trancada.mid");
 					}
 				}
 			}
@@ -153,14 +160,18 @@ public class Jogador extends Ator{
 			if (portas[1]) {
 				//Aperte enter para ir pro Mapa3
 				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
+					//Som.playItem("Áudio_Porta.mid");
 					new Mapa3(janela, this);
 				}
 			} else {
 				//Compra a liberação da porta
 				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 					if(this.pontuacao >= 100) {
+						//Som.playItem("Áudio_Porta_Destrancando.mid");
 						portas[1] = true;
 						this.pontuacao -= 100;
+					} else {
+						//Som.playItem("Áudio_Porta_Trancada.mid");
 					}
 				}
 			}
@@ -181,8 +192,12 @@ public class Jogador extends Ator{
 							} else {
 								this.energia += 50;
 							}
+							//Som.playItem("Áudio_Compra_Item.mid");
 							this.pontuacao -= 100;
+						} else {
+							//Som.playItem("Áudio_Compra_Negada.mid");
 						}
+						
 					}
 				} 
 			} else if(codigoMapa == 2) {
@@ -194,6 +209,9 @@ public class Jogador extends Ator{
 						if(this.pontuacao >= 100) {
 							this.armas[1] = true;
 							this.pontuacao -= 100;
+							//Som.playItem("Áudio_Compra_Item.mid");
+						} else {
+							//Som.playItem("Áudio_Compra_Negada.mid");
 						}
 					}
 				} else {
@@ -201,6 +219,9 @@ public class Jogador extends Ator{
 						if(this.pontuacao >= 50) {
 							TiroFuzil.setMaxMunicoes();
 							this.pontuacao -= 50;
+							//Som.playItem("Áudio_Compra_Item.mid");
+						} else {
+							//Som.playItem("Áudio_Compra_Negada.mid");
 						}
 					}
 				}
@@ -213,14 +234,17 @@ public class Jogador extends Ator{
 						if(this.pontuacao >= 100) {
 							this.armas[2] = true;
 							this.pontuacao -= 100;
-						} 
+							//Som.playItem("Áudio_Compra_Item.mid");
+						} else {
+							//Som.playItem("Áudio_Compra_Negada.mid");
+						}
 					}
 				} else {
 					if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 						if(this.pontuacao >= 50) {
 							TiroEspingarda.setMaxMunicoes();
 							this.pontuacao -= 50;
-						}
+						} 
 					}
 				}
 				
