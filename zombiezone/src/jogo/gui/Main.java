@@ -1,6 +1,8 @@
 package jogo.gui; 
 
 import java.awt.event.KeyEvent;
+
+import jogo.controle.Som;
 import jplay.Keyboard;
 import jplay.Window;
 
@@ -25,6 +27,7 @@ public class Main {
 		teclado.addKey(KeyEvent.VK_3);
 		
 		//Abre a tela de menu
+		Som.playMusica("AudioMenu.wav"); //Toca a musica tema do jogo
 		new Menu(janela);
 		
 		

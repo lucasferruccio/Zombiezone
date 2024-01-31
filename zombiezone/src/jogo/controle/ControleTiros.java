@@ -40,16 +40,16 @@ public class ControleTiros extends Sprite  {
 			
 			//Pega
 			if (arma == 2) {
-				Som.playTiro("Áudio_Metralhadora_Edit.mid");
+				
 				tiro = new TiroFuzil(x,y, caminho);
 				municoes = TiroFuzil.getMunicoes();
 			} else if (arma == 3) {
-				Som.playTiro("Áudio_Shotgun_Edit.mid");
+				
 				tiro = new TiroEspingarda(x,y, caminho);
 				municoes = TiroEspingarda.getMunicoes();
 			}
 			else {
-				Som.playTiro("Áudio_Pistola_Edit.mid");
+				
 				tiro = new TiroPistola(x,y, caminho);
 				municoes = TiroPistola.getMunicoes();
 			}
@@ -57,24 +57,30 @@ public class ControleTiros extends Sprite  {
 				tempoAtual = LocalTime.now();
 				if(tempoAtual.isAfter(tempoParaRecarregar)) {
 					if (arma == 2) {
+						Som.playTiro("AudioTiroFuzil.wav");
 						tiro = new TiroFuzil(x,y, caminho);
 						TiroFuzil.setMunicoes(municoes - 1);
 						
 					} else if (arma == 3){
+						Som.playTiro("AudioTiroEspingarda.wav");
 						tiro = new TiroEspingarda(x,y, caminho);
 						TiroEspingarda.setMunicoes(municoes - 1);
 					} else {
+						Som.playTiro("AudioTiroPistola.wav");
 						tiro = new TiroPistola(x,y, caminho);
 						TiroPistola.setMunicoes(municoes - 1);
 					}
 					Tiros.adicionarTiro(tiro);
 				} 
+			} else {
+				Som.playTiro("AudioArmaSemMunicao.wav");
 			}
 		}
 		
 		//Recarga de armas
 		public static void recarga(int arma) {
-			tempoParaRecarregar = LocalTime.now().plusSeconds(2);
+			Som.playTiro("AudioArmaRecarga.wav");
+			tempoParaRecarregar = LocalTime.now().plusSeconds(1);
 			if (arma == 1) {
 				TiroPistola.recargaArma();
 			} else if (arma == 2){

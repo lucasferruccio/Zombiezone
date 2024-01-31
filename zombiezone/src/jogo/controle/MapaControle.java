@@ -99,4 +99,8 @@ public class MapaControle {
 		Vector<?> objetosDoCenário = cena.getTilesFromRect(posicaoMinimo, posicaoMaximo);
 		return objetosDoCenário;
 	}
+	
+	public static void finalJogo() {
+		monstros = new ArrayList<>();
+	}
 }

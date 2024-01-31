@@ -1,5 +1,6 @@
 package jogo.gui;
 
+import jogo.controle.MapaControle;
 import jplay.GameImage;
 import jplay.Keyboard;
 import jplay.URL;
@@ -21,9 +22,16 @@ public class Final {
 
 	//loop da tela
 	private void run() {
+		MapaControle.finalJogo();
+		
 		while (true) {
 			plano.draw();
 			janela.update();
+			
+			//ESC para ir para o menu
+	        if (teclado.keyDown(Keyboard.ESCAPE_KEY)) {
+	            new Menu(janela); 
+            }
 		}
 	}
 

@@ -6,6 +6,7 @@ import jplay.URL;
 public class Som {
 	
 	private static Sound musica;
+	private static Sound morte;
 	private static Sound tiro;
 	private static Sound item;
 	
@@ -24,6 +25,13 @@ public class Som {
 	public static void playItem(String audio) {
 		item = new Sound(URL.audio(audio));
 		Som.item.play();
+		
+	}
+	
+	public static void playMorte(String audio) {
+		morte = new Sound(URL.audio(audio));
+		Som.morte.play();
+		
 	}
 	
 	//Para a musica
@@ -32,6 +40,8 @@ public class Som {
 			musica.stop();
 		}
 	}
+	
+	
 	
 	
 }

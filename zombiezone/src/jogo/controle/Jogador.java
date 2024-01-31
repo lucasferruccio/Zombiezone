@@ -2,7 +2,7 @@ package jogo.controle;
 
 import java.awt.event.KeyEvent;
 import jogo.gui.Tiros;
-import jogo.repositorio.Score;
+//import jogo.repositorio.Score;
 import jogo.gui.Mapa1;
 import jogo.gui.Mapa2;
 import jogo.gui.Mapa3;
@@ -10,23 +10,22 @@ import jplay.Keyboard;
 import jplay.Scene;
 import jplay.URL;
 import jplay.Window;
-import java.util.Scanner;
 import jogo.gui.Final;
 import jogo.gui.InterfaceJogo;
 
 public class Jogador extends Ator{
 	
 	
-	private String nome;
+	//private String nome;
+	//private Scanner scanner = new Scanner(System.in);
+	//private Score tabela = new Score();
 	private double energia = 200;
-	private double pontuacao = 1000;
+	private double pontuacao = 0;
 	//PORTAS: 0 -> porta de cima / 1 -> porta de baixo
 	private boolean[] portas = {false, false};
 	//ARMAS: 1 -> PISTOLA / 2 -> FUZIL / 3 -> ESPINGARDA\
 	private int armaAtual = 1;
 	private boolean[] armas = {true, false, false}; //A posição é a arma e a chave é se o personagem possui ou não a arma, por padrão ele só possui a pistola
-	private Scanner scanner = new Scanner(System.in);
-	private Score tabela = new Score();
 	private InterfaceJogo mensagemTela = new InterfaceJogo();
 	private Tiros tiros = new Tiros(); //Instancia do objeto para atirar e recarregar
 	
@@ -86,10 +85,9 @@ public class Jogador extends Ator{
 		this.energia -= dano;
 		//Abre a tela final do jogo caso o jogador fique sem vida
 		if(this.energia <= 0) {
-			System.out.println("Pontuação: " + this.pontuacao);
-			System.out.println("Como você gostaria de ser lembrado:");
-			nome = scanner.next();
-			tabela.sobrescrever(pontuacao,nome);
+			Som.playMorte("AudioMorteJogador.wav");
+			//tabela.sobrescrever(pontuacao,nome);
+			Som.playMusica("AudioMenu.wav");
 			new Final(janela);
 		}
 	}
@@ -126,7 +124,7 @@ public class Jogador extends Ator{
 				//Instrução na tela
 				mensagemTela.desbloquearPorta(janela, true);
 				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
-					//Som.playItem("Áudio_Porta.mid");
+					Som.playItem("AudioPortaEntrando.wav");
 					new Mapa1(janela, this);
 				}
 			}
@@ -135,7 +133,7 @@ public class Jogador extends Ator{
 				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 					//Ir para o Mapa1
 					if(codigoMapa == 1) {
-						//Som.playItem("Áudio_Porta.mid");
+						Som.playItem("AudioPortaEntrando.wav");
 						new Mapa2(janela, this);
 					}
 				} 
@@ -143,11 +141,11 @@ public class Jogador extends Ator{
 				//Compra a liberação da porta
 				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 					if(this.pontuacao >= 100) {
-						//Som.playItem("Áudio_Porta_Destrancando.mid");
+						Som.playItem("AudioPortaCompra.wav");
 						portas[0] = true;
 						this.pontuacao -= 100;
 					} else {
-						//Som.playItem("Áudio_Porta_Trancada.mid");
+						Som.playItem("AudioPortaTrancada.wav");
 					}
 				}
 			}
@@ -160,18 +158,18 @@ public class Jogador extends Ator{
 			if (portas[1]) {
 				//Aperte enter para ir pro Mapa3
 				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
-					//Som.playItem("Áudio_Porta.mid");
+					Som.playItem("AudioPortaEntrando.wav");
 					new Mapa3(janela, this);
 				}
 			} else {
 				//Compra a liberação da porta
 				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 					if(this.pontuacao >= 100) {
-						//Som.playItem("Áudio_Porta_Destrancando.mid");
+						Som.playItem("AudioPortaCompra.wav");
 						portas[1] = true;
 						this.pontuacao -= 100;
 					} else {
-						//Som.playItem("Áudio_Porta_Trancada.mid");
+						Som.playItem("AudioPortaTrancada.wav");
 					}
 				}
 			}
@@ -192,10 +190,10 @@ public class Jogador extends Ator{
 							} else {
 								this.energia += 50;
 							}
-							//Som.playItem("Áudio_Compra_Item.mid");
+							Som.playItem("AudioCompraItem.wav");
 							this.pontuacao -= 100;
 						} else {
-							//Som.playItem("Áudio_Compra_Negada.mid");
+							Som.playItem("AudioCompraNegada.wav");
 						}
 						
 					}
@@ -209,9 +207,9 @@ public class Jogador extends Ator{
 						if(this.pontuacao >= 100) {
 							this.armas[1] = true;
 							this.pontuacao -= 100;
-							//Som.playItem("Áudio_Compra_Item.mid");
+							Som.playItem("AudioCompraItem.wav");
 						} else {
-							//Som.playItem("Áudio_Compra_Negada.mid");
+							Som.playItem("AudioCompraNegada.wav");
 						}
 					}
 				} else {
@@ -219,9 +217,9 @@ public class Jogador extends Ator{
 						if(this.pontuacao >= 50) {
 							TiroFuzil.setMaxMunicoes();
 							this.pontuacao -= 50;
-							//Som.playItem("Áudio_Compra_Item.mid");
+							Som.playItem("AudioCompraItem.wav");
 						} else {
-							//Som.playItem("Áudio_Compra_Negada.mid");
+							Som.playItem("AudioCompraNegada.wav");
 						}
 					}
 				}

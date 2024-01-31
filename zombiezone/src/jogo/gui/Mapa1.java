@@ -4,6 +4,7 @@ import java.util.Vector;
 import jogo.controle.Colisao;
 import jogo.controle.Jogador;
 import jogo.controle.MapaControle;
+import jogo.controle.Som;
 import jplay.Scene;
 import jplay.URL;
 import jplay.Window;
@@ -24,7 +25,7 @@ public class Mapa1 extends MapaControle{
 		janela = window; 
 		cena = new Scene(); //Instancia um cena 
 		cena.loadFromFile(URL.scenario("Mapa1.scn")); //Carrega o arquivo do cenario
-		jogador = new Jogador(516, 247); //Instancia o jogador na tela
+		jogador = new Jogador(200, 225); //Instancia o jogador na tela
 		cena.addOverlay(jogador); //Adiciona o jogador no mapa
 		teclado = janela.getKeyboard(); //Possibilita a leitura do teclado
 		mapaAtual = 1;
@@ -33,6 +34,8 @@ public class Mapa1 extends MapaControle{
 		qtdMonstrosVivos =3;
 		qtdZumbis = 3;
 		adicionarMonstros(pontosSpawn); //Cria os primeiros zumbis
+		Som.stop();
+		Som.playMusica("AudioJogo.wav");
 		run(); //Chama o loop infinito para iniciar o jogo
 	}
 	
@@ -75,6 +78,7 @@ public class Mapa1 extends MapaControle{
 				for (int j = 0; j < qtdMonstrosVivos; j++) {
 					//Zumbi morreu -> Deletado do ArrayList
 					if (monstros.get(j).getEnergia() <= 0) {
+						Som.playMorte("AudioZumbiMorte.wav");
 						monstros.remove(monstros.get(j));
 						j = qtdMonstrosVivos;
 						qtdMonstrosVivos -= 1;
