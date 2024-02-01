@@ -38,8 +38,10 @@ public class JanelaMorte {
         txtNome.setBounds(335, 250, 100, 20);// inserindo o textfield
         btnSalvar.setBounds(330,380,100,30);// inserindo o botão
         
+        
+        
         // Colocando a imagem do alerta
-        ImageIcon imagemDeFundo = new ImageIcon("C:\\\\Users\\\\luism\\\\OneDrive\\\\Área de Trabalho\\\\Zombiezone-principal\\\\Zombiezone-main\\\\zombiezone\\\\src\\\\recursos\\\\sprites\\\\alerta.png");
+        ImageIcon imagemDeFundo = new ImageIcon("src/recursos/cenarios/alerta.png");
 
         // Criando um JLabel com a imagem
         JLabel labelImagem = new JLabel(imagemDeFundo);

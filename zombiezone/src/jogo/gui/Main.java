@@ -32,7 +32,7 @@ public class Main {
 		Score.leituradedados();
 		new Menu(janela);
 		
-}
+	}
 }
 						
 						
