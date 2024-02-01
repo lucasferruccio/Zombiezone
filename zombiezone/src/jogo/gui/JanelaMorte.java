@@ -42,7 +42,7 @@ public class JanelaMorte {
         
         // Colocando a imagem do alerta
         ImageIcon imagemDeFundo = new ImageIcon("src/recursos/cenarios/alerta.png");
-
+]
         // Criando um JLabel com a imagem
         JLabel labelImagem = new JLabel(imagemDeFundo);
 
