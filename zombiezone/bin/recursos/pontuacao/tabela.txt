@@ -3,8 +3,8 @@ null 0.0
 null 0.0
 null 0.0
 null 0.0
-null 0.0
 erro5 21.0
 erro6 21.0
 erro7 21.0
 po 32.0
+Lucas 127.0
