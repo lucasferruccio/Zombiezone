@@ -9,8 +9,8 @@ public class Cachorro extends Monstro{
 		this.x = x;
 		this.y = y;
 		//Setando as velocidades
-		this.velocidadeMax = 4;
-		this.velocidade = 4;
+		this.velocidadeMax = 3;
+		this.velocidade = 3;
 		//Setando os status
 		this.ataque = 1;
 		this.energia = 50;

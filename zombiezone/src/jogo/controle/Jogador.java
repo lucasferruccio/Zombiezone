@@ -178,7 +178,7 @@ public class Jogador extends Ator{
 			if (codigoMapa == 1) {
 				mensagemTela.mensKitMedico(janela, this.energia);
 				//Checa se a vida ja esta cheia
-				if (this.energia != 200) {
+				if (this.energia < 200) {
 					//Compra o kit medico e aumenta a vida do jogador
 					if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 						if(this.pontuacao >= 100) {

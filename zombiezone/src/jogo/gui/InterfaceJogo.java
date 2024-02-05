@@ -38,7 +38,7 @@ public class InterfaceJogo {
 	}
 
 	public void mensKitMedico(Window janela, double energia) {
-		if (energia != 200) {
+		if (energia < 200) {
 			janela.drawText("Clique ENTER para comprar 50 de vida (100 pontos)", 230, 300, Color.green, fonte);
 		} else {
 			janela.drawText("Saude cheia", 350, 300, Color.green, fonte);
