@@ -2,6 +2,8 @@ package jogo.gui;
 
 import java.awt.Color;
 import java.awt.Font;
+
+import jogo.controle.Ator;
 import jplay.Window;
 
 public class InterfaceJogo {
@@ -65,5 +67,9 @@ public class InterfaceJogo {
 	
 	public void infoEspingarda(Window janela, int municoes, int municoesTotais) {
 		janela.drawText("Munições:" + municoes + "/" + municoesTotais, 10, 40, Color.green, fonte);
+	}
+	
+	public static void desenharAtor(Ator ator) {
+		ator.draw();
 	}
 }

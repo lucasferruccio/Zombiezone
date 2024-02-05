@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Vector;
 
+import jogo.gui.InterfaceJogo;
 import jplay.Keyboard;
 import jplay.Scene;
 import jplay.Window;
@@ -18,14 +19,26 @@ public class MapaControle {
 	protected Keyboard teclado;
 	protected Colisao colisao;
 	protected static int mapaAtual; //1 -> Veio do Mapa 1, 2 -> Veio do Mapa 2, 3 -> Veio do Mapa 3
-	protected static ArrayList<Monstro> monstros = new ArrayList<>();
+	protected static ArrayList<Monstro> monstros;
 	protected static int qtdMonstrosMaximo;
 	protected static int qtdMonstrosVivos;
 	protected static int qtdZumbis;
 	protected static int rodada;
 	
+	//Configuração inicio do jogo
+	public static void iniciarJogo() {
+		mapaAtual = 1;
+		rodada = 1;
+		qtdMonstrosMaximo = 3;
+		qtdMonstrosVivos =3;
+		qtdZumbis = 3;
+		Som.stop();
+		Som.playMusica("AudioJogo.wav");
+	}
+	
 	//Adiciona os zumbis na tela
 	protected void adicionarMonstros(int[][] pontosSpawn) {
+		monstros = new ArrayList<>();
 		//Gerador randomico do spawn dos zumbis
 		Random gerador = new Random();
 		Monstro monstroAux;
@@ -45,17 +58,23 @@ public class MapaControle {
 	}
 	
 	protected void realocarZumbis(int[][] pontosSpawn, int mapaAtual) {
+		System.out.println(mapaAtual);
 		//Gerador de numeros aleatorios
 		Random gerador = new Random();
+		//Mapa1
 		if (mapaAtual == 1) {
 			for (int j = 0; j < qtdMonstrosVivos; j++) {
+				//Gera um indice aleatorio para a posição dos monstros
 				int indicePosicaoZumbi = gerador.nextInt(pontosSpawn[0].length);
 				monstros.get(j).x = pontosSpawn[0][indicePosicaoZumbi];
 				monstros.get(j).y = pontosSpawn[1][indicePosicaoZumbi];
 			}
-		} else if(mapaAtual == 2) {
+		} 
+		//Mapa2
+		else if(mapaAtual == 2) {
 			for (int j = 0; j < qtdMonstrosVivos; j++) {
 				int lugar = gerador.nextInt(2);
+				//Gera um valor aleatorio para a posição dos monstros entre a janela 1 ou a 2
 				if(lugar == 0) {
 					int posicaoX = gerador.nextInt(128, 216);
 					monstros.get(j).x = posicaoX;
@@ -63,11 +82,14 @@ public class MapaControle {
 					int posicaoX = gerador.nextInt(520, 600);
 					monstros.get(j).x = posicaoX;
 				}
-				monstros.get(j).y = 0;
+				monstros.get(j).y = -40;
 			}
-		} else if(mapaAtual == 3) {
+		}
+		//Mapa3
+		else if(mapaAtual == 3) {
 			for (int j = 0; j < qtdMonstrosVivos; j++) {
 				int lugar = gerador.nextInt(2);
+				//Gera um valor aleatorio para a posição dos monstros entre a janela 1 ou a 2
 				if(lugar == 0) {
 					int posicaoX = gerador.nextInt(128, 216);
 					monstros.get(j).x = posicaoX;
@@ -75,7 +97,7 @@ public class MapaControle {
 					int posicaoX = gerador.nextInt(520, 600);
 					monstros.get(j).x = posicaoX;
 				}
-				monstros.get(j).y = 451;
+				monstros.get(j).y = 510;
 			}
 		}
 	}
@@ -106,5 +128,58 @@ public class MapaControle {
 
 	public static double getRodada() {
 		return rodada;
+	}
+	
+	//Loop do jogo
+	public void run(int[][] pontosSpawn) {
+		//Carrega os objetos do mapa no sistema
+		Vector<?> objetosDoMapa = MapaControle.coletarObjetosMapa(cena);
+		Colisao.preencherObjetosMapa(objetosDoMapa);
+		//Adiciona o teclado
+		teclado = janela.getKeyboard();
+		
+		
+		while(true) {
+			jogador.mover(janela, teclado); //Possibilita o jogador de mover pelo mapa
+			cena.moveScene(jogador); //Move o jogador pelo mapa
+			InterfaceJogo.desenharAtor(jogador);
+			jogador.status(janela); //Chama a função que desenha os status do jogador
+			
+			//Checa se ainda existem zumbis vivos
+			if (qtdMonstrosVivos != 0) {
+				//Percorre todos os zumbis 
+				for (int j = 0; j < qtdMonstrosVivos; j++) {
+					//Zumbi morreu -> Deletado do ArrayList
+					if (monstros.get(j).getEnergia() <= 0) {
+						Som.playMorte("AudioZumbiMorte.wav");
+						monstros.remove(monstros.get(j));
+						j = qtdMonstrosVivos;
+						qtdMonstrosVivos -= 1;
+						jogador.receberPontos();
+					} 
+					//Continua desenhando o zumbi na tela
+					else {
+						jogador.atirar(janela, cena, teclado, monstros.get(j)); //Possibilita o personagem de acertar o zumbi
+						jogador.recarregar(teclado);
+						monstros.get(j).perseguir(jogador.x, jogador.y, monstros); //Possibilita o zumbi ir atras do jogador
+						monstros.get(j).atacar(jogador,janela); //Possibilita o zumbi de atacar o personagem
+						InterfaceJogo.desenharAtor(monstros.get(j));
+					}
+				}
+			} else {
+				qtdMonstrosVivos = qtdMonstrosMaximo;
+				rodadaFim();  //Chama o sistema de final de rodada
+				adicionarMonstros(pontosSpawn); //Adiciona zumbis
+			}
+			
+			//Possibilita do personagem trocar de Armas\
+			jogador.trocarArma(teclado);
+			
+			//Checa as interações do persongaem com o mapa
+			jogador.interacao(cena, teclado, janela, mapaAtual);
+			
+			janela.delay(10); //Delay para diminuir a velocidade do jogo
+			janela.update();  //Atualiza a janela
+		}
 	}
 }

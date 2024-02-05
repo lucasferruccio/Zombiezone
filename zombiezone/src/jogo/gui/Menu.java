@@ -1,5 +1,6 @@
 package jogo.gui;
 
+import jogo.controle.MapaControle;
 import jplay.GameImage;
 import jplay.Keyboard;
 import jplay.Window;
@@ -26,6 +27,7 @@ public class Menu {
 
 			//Enter para iniciar o jogo
 	        if (teclado.keyDown(Keyboard.ENTER_KEY)) {
+	        	MapaControle.iniciarJogo();
 	            new Mapa1(janela);
 	        }
 	        //Espaço para ir para o score board

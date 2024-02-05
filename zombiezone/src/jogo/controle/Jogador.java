@@ -16,8 +16,8 @@ import jogo.gui.JanelaMorte;
 public class Jogador extends Ator{
 	
 	//atributos
-	private double energia = 200;
-	private double pontuacao = 0;
+	private double energia = 20000;
+	private double pontuacao = 1000;
 	//PORTAS: 0 -> porta de cima / 1 -> porta de baixo
 	private boolean[] portas = {false, false};
 	//ARMAS: 1 -> PISTOLA / 2 -> FUZIL / 3 -> ESPINGARDA\
