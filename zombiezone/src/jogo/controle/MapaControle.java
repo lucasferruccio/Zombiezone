@@ -58,7 +58,6 @@ public class MapaControle {
 	}
 	
 	protected void realocarZumbis(int[][] pontosSpawn, int mapaAtual) {
-		System.out.println(mapaAtual);
 		//Gerador de numeros aleatorios
 		Random gerador = new Random();
 		//Mapa1
@@ -120,10 +119,6 @@ public class MapaControle {
 		Point posicaoMaximo = new Point(800, 480);
 		Vector<?> objetosDoCenário = cena.getTilesFromRect(posicaoMinimo, posicaoMaximo);
 		return objetosDoCenário;
-	}
-	
-	public static void finalJogo() {
-		monstros = new ArrayList<>();
 	}
 
 	public static double getRodada() {
