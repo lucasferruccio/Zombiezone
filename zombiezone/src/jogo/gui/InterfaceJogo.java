@@ -55,7 +55,7 @@ public class InterfaceJogo {
 		janela.drawText("Pontos:" + pontuacao, 10, 460, Color.green, fonte);
 	}
 	
-	//Informações armas
+	//Informações armas:
 	
 	public void infoPistola(Window janela, int municoes) {
 		janela.drawText("Munições:" + municoes + "/20", 10, 40, Color.green, fonte);

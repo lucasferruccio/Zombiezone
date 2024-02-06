@@ -16,7 +16,7 @@ import jogo.gui.JanelaMorte;
 public class Jogador extends Ator{
 	
 	//atributos
-	private double energia = 20000;
+	private double energia = 200;
 	private double pontuacao = 1000;
 	//PORTAS: 0 -> porta de cima / 1 -> porta de baixo
 	private boolean[] portas = {false, false};
@@ -85,8 +85,8 @@ public class Jogador extends Ator{
 			Som.playMorte("AudioMorteJogador.wav");
 			Som.playMusica("AudioMenu.wav");
 			this.pontuacao += MapaControle.getRodada();
-			new JanelaMorte(pontuacao);
-			new Menu(janela);
+			new JanelaMorte(pontuacao, janela);
+			//new Menu(janela);
 		}
 	}
 	
