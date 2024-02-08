@@ -2,8 +2,8 @@ package jogo.gui;
 
 import java.awt.event.KeyEvent;
 
-import jogo.controle.Som;
-import jogo.repositorio.Score;
+import jogo.controle.ControleSom;
+import jogo.repositorio.RepositorioScore;
 import jplay.Keyboard;
 import jplay.Window;
 
@@ -27,9 +27,9 @@ public class Main {
 		teclado.addKey(KeyEvent.VK_3);
 		
 		//Abre a tela de menu
-		Som.playMusica("AudioMenu.wav"); //Toca a musica tema do jogo
-		Score.leituradedados();
-		new Menu(janela);
+		ControleSom.playMusica("AudioMenu.wav"); //Toca a musica tema do jogo
+		RepositorioScore.leituradedados();
+		new InterfaceMenu(janela);
 		
 	}
 }

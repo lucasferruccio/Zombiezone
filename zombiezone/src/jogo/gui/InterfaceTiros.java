@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import jogo.controle.*;
 import jogo.controle.ControleTiros;
 
-public class Tiros {
+public class InterfaceTiros {
 	
 	private static LinkedList<ControleTiros> tiros = new LinkedList<>();
 	
@@ -15,7 +15,7 @@ public class Tiros {
 	}
 	
 	//Movimenta o disparo
-	public void run(Window janela, Monstro inimigo) {
+	public void run(Window janela, ControleMonstro inimigo) {
 		//Desenha os tiros na tela\\
 		for (int j = 0; j < tiros.size(); j++) {
 			tiros.get(j).draw();

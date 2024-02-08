@@ -1,7 +1,7 @@
 package jogo.controle;
 import java.time.LocalTime;
 
-import jogo.gui.Tiros;
+import jogo.gui.InterfaceTiros;
 import jplay.Scene;
 import jplay.Sprite;
 import jplay.URL;
@@ -41,52 +41,52 @@ public class ControleTiros extends Sprite  {
 			//Pega
 			if (arma == 2) {
 				
-				tiro = new TiroFuzil(x,y, caminho);
-				municoes = TiroFuzil.getMunicoes();
+				tiro = new ControleTiroFuzil(x,y, caminho);
+				municoes = ControleTiroFuzil.getMunicoes();
 			} else if (arma == 3) {
 				
-				tiro = new TiroEspingarda(x,y, caminho);
-				municoes = TiroEspingarda.getMunicoes();
+				tiro = new ControleTiroEspingarda(x,y, caminho);
+				municoes = ControleTiroEspingarda.getMunicoes();
 			}
 			else {
 				
-				tiro = new TiroPistola(x,y, caminho);
-				municoes = TiroPistola.getMunicoes();
+				tiro = new ControleTiroPistola(x,y, caminho);
+				municoes = ControleTiroPistola.getMunicoes();
 			}
 			if (municoes > 0) {
 				tempoAtual = LocalTime.now();
 				if(tempoAtual.isAfter(tempoParaRecarregar)) {
 					if (arma == 2) {
-						Som.playTiro("AudioTiroFuzil.wav");
-						tiro = new TiroFuzil(x,y, caminho);
-						TiroFuzil.setMunicoes(municoes - 1);
+						ControleSom.playTiro("AudioTiroFuzil.wav");
+						tiro = new ControleTiroFuzil(x,y, caminho);
+						ControleTiroFuzil.setMunicoes(municoes - 1);
 						
 					} else if (arma == 3){
-						Som.playTiro("AudioTiroEspingarda.wav");
-						tiro = new TiroEspingarda(x,y, caminho);
-						TiroEspingarda.setMunicoes(municoes - 1);
+						ControleSom.playTiro("AudioTiroEspingarda.wav");
+						tiro = new ControleTiroEspingarda(x,y, caminho);
+						ControleTiroEspingarda.setMunicoes(municoes - 1);
 					} else {
-						Som.playTiro("AudioTiroPistola.wav");
-						tiro = new TiroPistola(x,y, caminho);
-						TiroPistola.setMunicoes(municoes - 1);
+						ControleSom.playTiro("AudioTiroPistola.wav");
+						tiro = new ControleTiroPistola(x,y, caminho);
+						ControleTiroPistola.setMunicoes(municoes - 1);
 					}
-					Tiros.adicionarTiro(tiro);
+					InterfaceTiros.adicionarTiro(tiro);
 				} 
 			} else {
-				Som.playTiro("AudioArmaSemMunicao.wav");
+				ControleSom.playTiro("AudioArmaSemMunicao.wav");
 			}
 		}
 		
 		//Recarga de armas
 		public static void recarga(int arma) {
-			Som.playTiro("AudioArmaRecarga.wav");
+			ControleSom.playTiro("AudioArmaRecarga.wav");
 			tempoParaRecarregar = LocalTime.now().plusSeconds(1);
 			if (arma == 1) {
-				TiroPistola.recargaArma();
+				ControleTiroPistola.recargaArma();
 			} else if (arma == 2){
-				TiroFuzil.recargaArma();
+				ControleTiroFuzil.recargaArma();
 			} else if (arma == 3) {
-				TiroEspingarda.recargaArma();
+				ControleTiroEspingarda.recargaArma();
 			}
 		}		
 		

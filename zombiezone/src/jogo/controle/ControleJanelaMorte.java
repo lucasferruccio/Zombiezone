@@ -2,15 +2,15 @@ package jogo.controle;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
-import jogo.gui.Menu;
-import jogo.repositorio.Score;
+import jogo.gui.InterfaceMenu;
+import jogo.repositorio.RepositorioScore;
 import jplay.Keyboard;
 import jplay.Window;
 
 public class ControleJanelaMorte {
 	//Atributos
 	// Atributo
-	protected Score score;
+	protected RepositorioScore score;
 	protected String nome;
 	protected double pontos;
 	protected Window janela;
@@ -34,6 +34,6 @@ public class ControleJanelaMorte {
     			loopJanela = false;
     		}
     	}
-    	new Menu(janela);
+    	new InterfaceMenu(janela);
     }
 }

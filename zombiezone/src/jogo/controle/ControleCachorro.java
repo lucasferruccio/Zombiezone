@@ -1,9 +1,9 @@
 package jogo.controle;
 
-public class Cachorro extends Monstro{
+public class ControleCachorro extends ControleMonstro{
 	
 	//Construtor
-	public Cachorro(int x, int y) {
+	public ControleCachorro(int x, int y) {
 		super("cachorroMonstro.png");
 		//Posição inicial
 		this.x = x;

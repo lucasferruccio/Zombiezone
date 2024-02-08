@@ -1,12 +1,12 @@
 package jogo.gui;
 
 import jplay.Window;
-import jogo.controle.Jogador;
-import jogo.controle.MapaControle;
+import jogo.controle.ControleJogador;
+import jogo.controle.ControleMapaControle;
 import jplay.Scene;
 import jplay.URL;
 
-public class Mapa2 extends MapaControle {
+public class InterfaceMapa2 extends ControleMapaControle {
 	//SPAWN DE INIMIGOS
 	//Posicoes de Spawn dos zumbis possiveis sendo a linha zero o eixo x e a segunda linha o eixo y 
 	private int pontosSpawn[][] = {
@@ -15,7 +15,7 @@ public class Mapa2 extends MapaControle {
 		};
 	
 	//Construtor
-	public Mapa2(Window window, Jogador jogador) {
+	public InterfaceMapa2(Window window, ControleJogador jogador) {
 		janela = window; 
 		cena = new Scene(); //Instancia um cena 
 		cena.loadFromFile(URL.scenario("Mapa2.scn")); //Carrega o arquivo do cenario

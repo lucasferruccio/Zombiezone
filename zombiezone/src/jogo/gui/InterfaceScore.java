@@ -3,7 +3,7 @@ package jogo.gui;
 import java.awt.Color;
 import java.awt.Font;
 
-import jogo.repositorio.Score;
+import jogo.repositorio.RepositorioScore;
 import jplay.GameImage;
 import jplay.Keyboard;
 import jplay.Window;
@@ -20,7 +20,7 @@ public class InterfaceScore {
 	
 	//Construtor
 	public InterfaceScore(Window janela) {
-		Score.leituradedados(); //Faz a leitura do arquivo
+		RepositorioScore.leituradedados(); //Faz a leitura do arquivo
 		this.janela = janela;
 		this.teclado = janela.getKeyboard(); //Pega o teclado
 		this.plano = new GameImage("src/recursos/cenarios/ranking.png");
@@ -30,8 +30,8 @@ public class InterfaceScore {
 	//Desenha os nomes e pontuações na tela
 	public void desenharNomes(Window janela) {
 		//Pega os nomes e pontuações dos jogadores
-		nomes = Score.getNomes();
-		pontuacoes = Score.getPontuacoes();
+		nomes = RepositorioScore.getNomes();
+		pontuacoes = RepositorioScore.getPontuacoes();
 		int altura = 145; //Altura Inicial
 		//Loop pra percorrer as pontuações
 		for(int i=9;i>=0;i--) {
@@ -51,7 +51,7 @@ public class InterfaceScore {
 			janela.update();
 			
 	        if (teclado.keyDown(Keyboard.ESCAPE_KEY)) {
-	            new Menu(janela);
+	            new InterfaceMenu(janela);
 	        }
 	    }
 	}	 

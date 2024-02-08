@@ -1,18 +1,18 @@
 package jogo.gui;
 
-import jogo.controle.MapaControle;
+import jogo.controle.ControleMapaControle;
 import jplay.GameImage;
 import jplay.Keyboard;
 import jplay.Window;
 
-public class Menu {
+public class InterfaceMenu {
 	//atributos
 	Window janela;
 	GameImage plano;
 	Keyboard teclado = new Keyboard();
 	
 	//Construtor
-	public Menu(Window janela) {
+	public InterfaceMenu(Window janela) {
 		this.janela = janela;
 		this.teclado = new Keyboard();
 		this.teclado = janela.getKeyboard(); //Reconhece o teclado
@@ -30,14 +30,12 @@ public class Menu {
 
 			//Enter para iniciar o jogo
 	        if (teclado.keyDown(Keyboard.ENTER_KEY)) {
-	        	System.out.println(9);
-	        	MapaControle.iniciarJogo();
-	            new Mapa1(janela);
+	        	ControleMapaControle.iniciarJogo();
+	            new InterfaceMapa1(janela);
 	        } 
 	        
 	        //Espaço para ir para o score board
 	        if (teclado.keyDown(Keyboard.SPACE_KEY)) {
-	        	System.out.println(10 );
 	            new InterfaceScore(janela); 
             }
 	    }    

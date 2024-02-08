@@ -3,7 +3,7 @@ package jogo.gui;
 import java.awt.Color;
 import java.awt.Font;
 
-import jogo.controle.Ator;
+import jogo.controle.ControleAtor;
 import jplay.Window;
 
 public class InterfaceJogo {
@@ -69,7 +69,7 @@ public class InterfaceJogo {
 		janela.drawText("Munições:" + municoes + "/" + municoesTotais, 10, 40, Color.green, fonte);
 	}
 	
-	public static void desenharAtor(Ator ator) {
+	public static void desenharAtor(ControleAtor ator) {
 		ator.draw();
 	}
 }

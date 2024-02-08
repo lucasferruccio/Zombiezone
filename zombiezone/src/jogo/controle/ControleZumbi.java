@@ -1,9 +1,9 @@
 package jogo.controle;
 
-public class Zumbi extends Monstro{
+public class ControleZumbi extends ControleMonstro{
 	
 	//Construtor
-	public Zumbi(int x, int y) {
+	public ControleZumbi(int x, int y) {
 		super("zumbi.png");
 		//Posição Inicial
 		this.x = x;

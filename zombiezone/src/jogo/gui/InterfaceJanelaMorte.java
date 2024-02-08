@@ -7,17 +7,17 @@ import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import jogo.controle.ControleJanelaMorte;
-import jogo.repositorio.Score;
+import jogo.repositorio.RepositorioScore;
 import jplay.Window;
 
-public class JanelaMorte extends ControleJanelaMorte {
+public class InterfaceJanelaMorte extends ControleJanelaMorte {
     
     // Construtor
  
-    public JanelaMorte(double pontuacao, Window janela) {
+    public InterfaceJanelaMorte(double pontuacao, Window janela) {
     	this.janela = janela;
     	this.teclado = janela.getKeyboard();
-    	this.score = new Score();
+    	this.score = new RepositorioScore();
     	this.txtNome = new JTextField();
     	this.btnSalvar = new JButton("Salvar");
     	this.pontos = pontuacao;
