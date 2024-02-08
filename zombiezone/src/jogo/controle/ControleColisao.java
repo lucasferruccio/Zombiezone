@@ -4,7 +4,7 @@ import java.util.Vector;
 import jplay.GameObject;
 import jplay.TileInfo;
 
-public class Colisao {
+public class ControleColisao {
 	private static TileInfo porta1;
 	private static TileInfo porta2;
 	private static TileInfo item;

@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import jplay.URL;
 import jplay.Window;
 
-public class Monstro extends Ator{
+public class ControleMonstro extends ControleAtor{
 	//Atributos
 	protected double energia;
 	protected double ataque;
 	protected double velocidadeMax;
 	
 	//Construtor
-	public Monstro(String imagem) {
+	public ControleMonstro(String imagem) {
 		super(URL.sprite(imagem), 16);
 		this.setTotalDuration(2000); //Tempo em milisegundos que para mudar os frames
 	}
@@ -23,7 +23,7 @@ public class Monstro extends Ator{
 	}
 	
 	//Ataca o jogador caso eles entrem em colisão
-	public void atacar(Jogador jogador,Window janela) {
+	public void atacar(ControleJogador jogador,Window janela) {
 		if(this.collided(jogador)) {
 			jogador.atacado(ataque,janela);
 		}
@@ -35,9 +35,9 @@ public class Monstro extends Ator{
 	}
 	
 	//Faz com que o monstro percorra o jogador
-	public void perseguir(double x, double y, ArrayList<Monstro> monstros) {
+	public void perseguir(double x, double y, ArrayList<ControleMonstro> monstros) {
 		for (int j = 0; j < monstros.size(); j++) {
-			Monstro monstro = monstros.get(j);
+			ControleMonstro monstro = monstros.get(j);
 			if (!this.equals(monstro) && this.collided(monstro)){
 				//System.out.println("Colidindo");
 				this.velocidade = 1;

@@ -2,7 +2,7 @@ package jogo.controle;
 
 import jplay.Sprite;
 
-public abstract class Ator extends Sprite{
+public abstract class ControleAtor extends Sprite{
 	
 	//Atributos
 	protected double velocidade = 3;
@@ -10,7 +10,7 @@ public abstract class Ator extends Sprite{
 	protected boolean movendo = false;
 	
 	//Construtor
-	public Ator(String fileName, int numFrames) {
+	public ControleAtor(String fileName, int numFrames) {
 		super(fileName, numFrames);
 	}
 	

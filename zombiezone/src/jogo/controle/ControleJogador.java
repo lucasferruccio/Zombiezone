@@ -1,37 +1,36 @@
 package jogo.controle;
 
 import java.awt.event.KeyEvent;
-import jogo.gui.Tiros;
-import jogo.gui.Mapa1;
-import jogo.gui.Mapa2;
-import jogo.gui.Mapa3;
-import jogo.gui.Menu;
+import jogo.gui.InterfaceTiros;
+import jogo.gui.InterfaceMapa1;
+import jogo.gui.InterfaceMapa2;
+import jogo.gui.InterfaceMapa3;
 import jplay.Keyboard;
 import jplay.Scene;
 import jplay.URL;
 import jplay.Window;
 import jogo.gui.InterfaceJogo;
-import jogo.gui.JanelaMorte;
+import jogo.gui.InterfaceJanelaMorte;
 
-public class Jogador extends Ator{
+public class ControleJogador extends ControleAtor{
 	
 	//atributos
-	private double energia = 20000;
-	private double pontuacao = 1000;
+	private double energia = 200;
+	private double pontuacao = 0;
 	//PORTAS: 0 -> porta de cima / 1 -> porta de baixo
 	private boolean[] portas = {false, false};
 	//ARMAS: 1 -> PISTOLA / 2 -> FUZIL / 3 -> ESPINGARDA\
 	private int armaAtual = 1;
 	private boolean[] armas = {true, false, false}; //A posição é a arma e a chave é se o personagem possui ou não a arma, por padrão ele só possui a pistola
 	private InterfaceJogo mensagemTela = new InterfaceJogo();
-	private Tiros tiros = new Tiros(); //Instancia do objeto para atirar e recarregar
+	private InterfaceTiros tiros = new InterfaceTiros(); //Instancia do objeto para atirar e recarregar
 	
 	public double getEnergia() {
 		return energia;
 	}
 
 	//Construtor
-	public Jogador(int x, int y) {
+	public ControleJogador(int x, int y) {
 		super(URL.sprite("jogador.png"), 48);
 		//Cordenadas
 		this.height = 32;
@@ -63,7 +62,7 @@ public class Jogador extends Ator{
 	}
 
 	
-	public void atirar(Window janela, Scene cena, Keyboard teclado, Monstro inimigo) {
+	public void atirar(Window janela, Scene cena, Keyboard teclado, ControleMonstro inimigo) {
 		//Seta a tecla para atirar
 		if (teclado.keyDown(KeyEvent.VK_SPACE)) {
 			ControleTiros.criarTiro(this.x, this.y, this.direcao, cena, this.armaAtual);
@@ -82,11 +81,10 @@ public class Jogador extends Ator{
 		this.energia -= dano;
 		//Abre a tela final do jogo caso o jogador fique sem vida
 		if(this.energia <= 0) {
-			Som.playMorte("AudioMorteJogador.wav");
-			Som.playMusica("AudioMenu.wav");
-			this.pontuacao += MapaControle.getRodada();
-			new JanelaMorte(pontuacao);
-			new Menu(janela);
+			ControleSom.playMorte("AudioMorteJogador.wav");
+			ControleSom.playMusica("AudioMenu.wav");
+			this.pontuacao += ControleMapaControle.getRodada();
+			new InterfaceJanelaMorte(pontuacao, janela);
 		}
 	}
 	
@@ -94,7 +92,6 @@ public class Jogador extends Ator{
 	public void recarregar(Keyboard teclado) {
 		//Seta a tecla para recarregar
 		if (teclado.keyDown(KeyEvent.VK_R)){
-			//Som.playTiro("Áudio_Recarga_Arma");
 			ControleTiros.recarga(this.getArma());
 		}
 	}
@@ -114,7 +111,7 @@ public class Jogador extends Ator{
 	//Interagir com objetos do mapa
 	public void interacao(Scene cena, Keyboard teclado, Window janela, int codigoMapa) {
 		//Checa com a colisao com a porta1(A porta de cima no mapa1 e a unica porta nos outros mapas)
-		if(Colisao.colisaoPorta1(this)) {
+		if(ControleColisao.colisaoPorta1(this)) {
 			//Instrução na tela
 			mensagemTela.desbloquearPorta(janela, portas[0]);
 			//Sair do Mapa1 ou Mapa2
@@ -122,8 +119,8 @@ public class Jogador extends Ator{
 				//Instrução na tela
 				mensagemTela.desbloquearPorta(janela, true);
 				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
-					Som.playItem("AudioPortaEntrando.wav");
-					new Mapa1(janela, this);
+					ControleSom.playItem("AudioPortaEntrando.wav");
+					new InterfaceMapa1(janela, this);
 				}
 			}
 			//Se o personagem ja tiver desbloqueado a porta ele entra caso contrario aparece uma mensagem para ele comprar
@@ -131,49 +128,49 @@ public class Jogador extends Ator{
 				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 					//Ir para o Mapa1
 					if(codigoMapa == 1) {
-						Som.playItem("AudioPortaEntrando.wav");
-						new Mapa2(janela, this);
+						ControleSom.playItem("AudioPortaEntrando.wav");
+						new InterfaceMapa2(janela, this);
 					}
 				} 
 			} else {
 				//Compra a liberação da porta
 				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 					if(this.pontuacao >= 100) {
-						Som.playItem("AudioPortaCompra.wav");
+						ControleSom.playItem("AudioPortaCompra.wav");
 						portas[0] = true;
 						this.pontuacao -= 100;
 					} else {
-						Som.playItem("AudioPortaTrancada.wav");
+						ControleSom.playItem("AudioPortaTrancada.wav");
 					}
 				}
 			}
 		}
 		//Checa a colisao com a porta para o Mapa3
-		if(Colisao.colisaoPorta2(this)) {
+		if(ControleColisao.colisaoPorta2(this)) {
 			//Instrução na tela
 			mensagemTela.desbloquearPorta(janela, portas[1]);
 			//Checa se o personagem ja liberou a porta
 			if (portas[1]) {
 				//Aperte enter para ir pro Mapa3
 				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
-					Som.playItem("AudioPortaEntrando.wav");
-					new Mapa3(janela, this);
+					ControleSom.playItem("AudioPortaEntrando.wav");
+					new InterfaceMapa3(janela, this);
 				}
 			} else {
 				//Compra a liberação da porta
 				if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 					if(this.pontuacao >= 100) {
-						Som.playItem("AudioPortaCompra.wav");
+						ControleSom.playItem("AudioPortaCompra.wav");
 						portas[1] = true;
 						this.pontuacao -= 100;
 					} else {
-						Som.playItem("AudioPortaTrancada.wav");
+						ControleSom.playItem("AudioPortaTrancada.wav");
 					}
 				}
 			}
 		}
 		//Checa a Colisao com o item do mapa
-		if (Colisao.colisaoItem(this)) {
+		if (ControleColisao.colisaoItem(this)) {
 			//Checa qual mapa o jogador esta
 			if (codigoMapa == 1) {
 				mensagemTela.mensKitMedico(janela, this.energia);
@@ -188,10 +185,10 @@ public class Jogador extends Ator{
 							} else {
 								this.energia += 50;
 							}
-							Som.playItem("AudioCompraItem.wav");
+							ControleSom.playItem("AudioCompraItem.wav");
 							this.pontuacao -= 100;
 						} else {
-							Som.playItem("AudioCompraNegada.wav");
+							ControleSom.playItem("AudioCompraNegada.wav");
 						}
 						
 					}
@@ -205,19 +202,19 @@ public class Jogador extends Ator{
 						if(this.pontuacao >= 100) {
 							this.armas[1] = true;
 							this.pontuacao -= 100;
-							Som.playItem("AudioCompraItem.wav");
+							ControleSom.playItem("AudioCompraItem.wav");
 						} else {
-							Som.playItem("AudioCompraNegada.wav");
+							ControleSom.playItem("AudioCompraNegada.wav");
 						}
 					}
 				} else {
 					if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 						if(this.pontuacao >= 50) {
-							TiroFuzil.setMaxMunicoes();
+							ControleTiroFuzil.setMaxMunicoes();
 							this.pontuacao -= 50;
-							Som.playItem("AudioCompraItem.wav");
+							ControleSom.playItem("AudioCompraItem.wav");
 						} else {
-							Som.playItem("AudioCompraNegada.wav");
+							ControleSom.playItem("AudioCompraNegada.wav");
 						}
 					}
 				}
@@ -238,7 +235,7 @@ public class Jogador extends Ator{
 				} else {
 					if (teclado.keyDown(Keyboard.ENTER_KEY)) {
 						if(this.pontuacao >= 50) {
-							TiroEspingarda.setMaxMunicoes();
+							ControleTiroEspingarda.setMaxMunicoes();
 							this.pontuacao -= 50;
 						} 
 					}
@@ -258,11 +255,11 @@ public class Jogador extends Ator{
 		mensagemTela.pontuacao(janela, this.pontuacao);
 		//Desenha a quantidade de munição da arma em mãos
 		if (this.getArma() == 1) {
-			mensagemTela.infoPistola(janela, TiroPistola.getMunicoes());
+			mensagemTela.infoPistola(janela, ControleTiroPistola.getMunicoes());
 		} else if (this.getArma() == 2) {
-			mensagemTela.infoFuzil(janela, TiroFuzil.getMunicoes(), TiroFuzil.getMaxMunicoes());
+			mensagemTela.infoFuzil(janela, ControleTiroFuzil.getMunicoes(), ControleTiroFuzil.getMaxMunicoes());
 		} else if(this.getArma() == 3) {
-			mensagemTela.infoEspingarda(janela, TiroEspingarda.getMunicoes(), TiroEspingarda.getMaxMunicoes());
+			mensagemTela.infoEspingarda(janela, ControleTiroEspingarda.getMunicoes(), ControleTiroEspingarda.getMaxMunicoes());
 		}
 	}
 	

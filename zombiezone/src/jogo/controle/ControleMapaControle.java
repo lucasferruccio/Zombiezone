@@ -10,16 +10,16 @@ import jplay.Keyboard;
 import jplay.Scene;
 import jplay.Window;
 
-public class MapaControle {
+public class ControleMapaControle {
 
 	//Atributos
 	protected Window janela;
 	protected Scene cena;  //Define o arquivo que molda o cenario
-	protected Jogador jogador;
+	protected ControleJogador jogador;
 	protected Keyboard teclado;
-	protected Colisao colisao;
+	protected ControleColisao colisao;
 	protected static int mapaAtual; //1 -> Veio do Mapa 1, 2 -> Veio do Mapa 2, 3 -> Veio do Mapa 3
-	protected static ArrayList<Monstro> monstros;
+	protected static ArrayList<ControleMonstro> monstros;
 	protected static int qtdMonstrosMaximo;
 	protected static int qtdMonstrosVivos;
 	protected static int qtdZumbis;
@@ -32,8 +32,8 @@ public class MapaControle {
 		qtdMonstrosMaximo = 3;
 		qtdMonstrosVivos =3;
 		qtdZumbis = 3;
-		Som.stop();
-		Som.playMusica("AudioJogo.wav");
+		ControleSom.stop();
+		ControleSom.playMusica("AudioJogo.wav");
 	}
 	
 	//Adiciona os zumbis na tela
@@ -41,16 +41,16 @@ public class MapaControle {
 		monstros = new ArrayList<>();
 		//Gerador randomico do spawn dos zumbis
 		Random gerador = new Random();
-		Monstro monstroAux;
+		ControleMonstro monstroAux;
 		//Loop para gerar os zumbis
 		for (int i = 0; i < qtdMonstrosMaximo; i++) {
 			//Gera o indice da posição onde o monstro vai surgir
 			int indicePosicaoZumbi = gerador.nextInt(pontosSpawn[0].length);
 			//Cria o zumbi na posição 
 			if (i < qtdZumbis) {
-				monstroAux = new Zumbi(pontosSpawn[0][indicePosicaoZumbi], pontosSpawn[1][indicePosicaoZumbi]);
+				monstroAux = new ControleZumbi(pontosSpawn[0][indicePosicaoZumbi], pontosSpawn[1][indicePosicaoZumbi]);
 			} else {
-				monstroAux = new Cachorro(pontosSpawn[0][indicePosicaoZumbi], pontosSpawn[1][indicePosicaoZumbi]);
+				monstroAux = new ControleCachorro(pontosSpawn[0][indicePosicaoZumbi], pontosSpawn[1][indicePosicaoZumbi]);
 			}
 			//Adiciona o monstro na lista
 			monstros.add(monstroAux);
@@ -58,7 +58,6 @@ public class MapaControle {
 	}
 	
 	protected void realocarZumbis(int[][] pontosSpawn, int mapaAtual) {
-		System.out.println(mapaAtual);
 		//Gerador de numeros aleatorios
 		Random gerador = new Random();
 		//Mapa1
@@ -121,10 +120,6 @@ public class MapaControle {
 		Vector<?> objetosDoCenário = cena.getTilesFromRect(posicaoMinimo, posicaoMaximo);
 		return objetosDoCenário;
 	}
-	
-	public static void finalJogo() {
-		monstros = new ArrayList<>();
-	}
 
 	public static double getRodada() {
 		return rodada;
@@ -133,8 +128,8 @@ public class MapaControle {
 	//Loop do jogo
 	public void run(int[][] pontosSpawn) {
 		//Carrega os objetos do mapa no sistema
-		Vector<?> objetosDoMapa = MapaControle.coletarObjetosMapa(cena);
-		Colisao.preencherObjetosMapa(objetosDoMapa);
+		Vector<?> objetosDoMapa = ControleMapaControle.coletarObjetosMapa(cena);
+		ControleColisao.preencherObjetosMapa(objetosDoMapa);
 		//Adiciona o teclado
 		teclado = janela.getKeyboard();
 		
@@ -151,7 +146,7 @@ public class MapaControle {
 				for (int j = 0; j < qtdMonstrosVivos; j++) {
 					//Zumbi morreu -> Deletado do ArrayList
 					if (monstros.get(j).getEnergia() <= 0) {
-						Som.playMorte("AudioZumbiMorte.wav");
+						ControleSom.playMorte("AudioZumbiMorte.wav");
 						monstros.remove(monstros.get(j));
 						j = qtdMonstrosVivos;
 						qtdMonstrosVivos -= 1;

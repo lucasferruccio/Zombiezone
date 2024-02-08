@@ -1,13 +1,13 @@
 package jogo.controle;
 
-public class TiroEspingarda extends ControleTiros{
-	static int municoes = 6;
-	static int municoesTotais = 30;
+public class ControleTiroFuzil extends ControleTiros{
+	static int municoes = 30;
+	static int municoesTotais = 240;
 	
-	public TiroEspingarda(double x, double y, int caminho) {
+	public ControleTiroFuzil(double x, double y, int caminho) {
 		super(x, y, caminho);
-		this.velocidadeTiro = 4;
-		this.dano = 100;
+		this.velocidadeTiro = 6;
+		this.dano = 50;
 	}
 	
 	//Gets e Sets:
@@ -17,7 +17,7 @@ public class TiroEspingarda extends ControleTiros{
 	}
 	
 	public static void setMaxMunicoes() {
-		municoesTotais = 30;
+		municoesTotais = 240;
 	}
 	
 	public static int getMaxMunicoes() {
@@ -32,8 +32,8 @@ public class TiroEspingarda extends ControleTiros{
 	public static void recargaArma() {
 		if (municoesTotais > 0) {
 			//Toda recarga diminui 6 balas totais
-			municoesTotais -= 6;
-			municoes = 6;
+			municoesTotais -= 40;
+			municoes = 40;
 		}
 	}
-}
+}	

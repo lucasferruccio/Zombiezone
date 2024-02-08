@@ -1,9 +1,9 @@
 package jogo.controle;
 
-public class TiroPistola extends ControleTiros{
+public class ControleTiroPistola extends ControleTiros{
 	static int municoes = 20;
 		
-	public TiroPistola(double x, double y, int caminho) {
+	public ControleTiroPistola(double x, double y, int caminho) {
 		super(x, y, caminho);
 		this.velocidadeTiro = 5;
 		this.dano = 25;

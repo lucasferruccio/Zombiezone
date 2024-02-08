@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
-public class Score {
+public class RepositorioScore {
 	//Atributos
 	private static String[]nomes = new String[10];
 	private static double[] pontuacoes = new double[10];
@@ -67,12 +67,12 @@ public class Score {
 		}
 		
 		//Se for o ultimo jogador ele so substitui
-		if(indice == 0) {
+		if(indice != null && indice == 0) {
 			nomes[0] = nome;
 			pontuacoes[0] = pontos;
 		}
 		//Caso contrário ele desce as outras pontuações
-		else if(indice>0) {
+		else if(indice != null && indice > 0) {
 			String auxNome;
 			double auxPontuacao;
 			while(indice >= 0 ) {
