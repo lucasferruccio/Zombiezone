@@ -1,6 +1,6 @@
 package jogo.controle;
 
-public class ControleTiroPistola extends ControleTiros{
+public class ControleTiroPistola extends ControleBala{
 	static int municoes = 20;
 		
 	public ControleTiroPistola(double x, double y, int caminho) {

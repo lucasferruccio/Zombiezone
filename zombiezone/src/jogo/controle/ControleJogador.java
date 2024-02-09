@@ -1,7 +1,6 @@
 package jogo.controle;
 
 import java.awt.event.KeyEvent;
-import jogo.gui.InterfaceTiros;
 import jogo.gui.InterfaceMapa1;
 import jogo.gui.InterfaceMapa2;
 import jogo.gui.InterfaceMapa3;
@@ -23,7 +22,7 @@ public class ControleJogador extends ControleAtor{
 	private int armaAtual = 1;
 	private boolean[] armas = {true, false, false}; //A posição é a arma e a chave é se o personagem possui ou não a arma, por padrão ele só possui a pistola
 	private InterfaceJogo mensagemTela = new InterfaceJogo();
-	private InterfaceTiros tiros = new InterfaceTiros(); //Instancia do objeto para atirar e recarregar
+	private ControleTiros tiros = new ControleTiros(); //Instancia do objeto para atirar e recarregar
 	
 	public double getEnergia() {
 		return energia;
@@ -65,7 +64,7 @@ public class ControleJogador extends ControleAtor{
 	public void atirar(Window janela, Scene cena, Keyboard teclado, ControleMonstro inimigo) {
 		//Seta a tecla para atirar
 		if (teclado.keyDown(KeyEvent.VK_SPACE)) {
-			ControleTiros.criarTiro(this.x, this.y, this.direcao, cena, this.armaAtual);
+			ControleBala.criarTiro(this.x, this.y, this.direcao, cena, this.armaAtual);
 		}
 		tiros.run(janela, inimigo); //Faz o tiro andar
 	}
@@ -92,7 +91,7 @@ public class ControleJogador extends ControleAtor{
 	public void recarregar(Keyboard teclado) {
 		//Seta a tecla para recarregar
 		if (teclado.keyDown(KeyEvent.VK_R)){
-			ControleTiros.recarga(this.getArma());
+			ControleBala.recarga(this.getArma());
 		}
 	}
 	
@@ -227,9 +226,9 @@ public class ControleJogador extends ControleAtor{
 						if(this.pontuacao >= 100) {
 							this.armas[2] = true;
 							this.pontuacao -= 100;
-							//Som.playItem("Áudio_Compra_Item.mid");
+							ControleSom.playItem("AudioCompraItem.wav");
 						} else {
-							//Som.playItem("Áudio_Compra_Negada.mid");
+							ControleSom.playItem("AudioCompraNegada.wav");
 						}
 					}
 				} else {
