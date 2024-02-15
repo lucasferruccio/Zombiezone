@@ -7,7 +7,7 @@ import jplay.URL;
 
 
 public class ControleBala extends Sprite  {
-	//Direção do tiro
+	//Direção do tiroa
 	public static final int ESQUERDA = 1, DIREITA = 2, CIMA = 3, BAIXO = 4, PARADO = 5;
 	
 	//Atributos
