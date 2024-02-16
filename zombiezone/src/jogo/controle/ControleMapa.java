@@ -10,7 +10,7 @@ import jplay.Keyboard;
 import jplay.Scene;
 import jplay.Window;
 
-public class ControleMapaControle {
+public class ControleMapa {
 
 	//Atributos
 	protected Window janela;
@@ -128,7 +128,7 @@ public class ControleMapaControle {
 	//Loop do jogo
 	public void run(int[][] pontosSpawn) {
 		//Carrega os objetos do mapa no sistema
-		Vector<?> objetosDoMapa = ControleMapaControle.coletarObjetosMapa(cena);
+		Vector<?> objetosDoMapa = ControleMapa.coletarObjetosMapa(cena);
 		ControleColisao.preencherObjetosMapa(objetosDoMapa);
 		//Adiciona o teclado
 		teclado = janela.getKeyboard();

@@ -1,6 +1,6 @@
 package jogo.gui;
 
-import jogo.controle.ControleMapaControle;
+import jogo.controle.ControleMapa;
 import jplay.GameImage;
 import jplay.Keyboard;
 import jplay.Window;
@@ -30,7 +30,7 @@ public class InterfaceMenu {
 
 			//Enter para iniciar o jogo
 	        if (teclado.keyDown(Keyboard.ENTER_KEY)) {
-	        	ControleMapaControle.iniciarJogo();
+	        	ControleMapa.iniciarJogo();
 	            new InterfaceMapa1(janela);
 	        } 
 	        

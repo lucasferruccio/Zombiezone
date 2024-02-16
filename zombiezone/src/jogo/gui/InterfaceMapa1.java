@@ -1,12 +1,12 @@
 package jogo.gui;
 
 import jogo.controle.ControleJogador;
-import jogo.controle.ControleMapaControle;
+import jogo.controle.ControleMapa;
 import jplay.Scene;
 import jplay.URL;
 import jplay.Window;
 
-public class InterfaceMapa1 extends ControleMapaControle{
+public class InterfaceMapa1 extends ControleMapa{
 
 	//SPAWN DE INIMIGOS
 	//Posicoes de Spawn dos zumbis possiveis sendo a linha zero o eixo x e a linha um o eixo y 

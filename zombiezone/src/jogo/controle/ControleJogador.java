@@ -82,7 +82,7 @@ public class ControleJogador extends ControleAtor{
 		if(this.energia <= 0) {
 			ControleSom.playMorte("AudioMorteJogador.wav");
 			ControleSom.playMusica("AudioMenu.wav");
-			this.pontuacao += ControleMapaControle.getRodada();
+			this.pontuacao += ControleMapa.getRodada();
 			new InterfaceJanelaMorte(pontuacao, janela);
 		}
 	}
