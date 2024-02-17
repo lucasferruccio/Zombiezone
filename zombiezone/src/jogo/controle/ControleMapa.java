@@ -171,7 +171,7 @@ public class ControleMapa {
 			jogador.trocarArma(teclado);
 			
 			//Checa as interações do persongaem com o mapa
-			jogador.interacao(cena, teclado, janela, mapaAtual);
+			jogador.interacao(cena, teclado, janela, mapaAtual); 
 			
 			janela.delay(10); //Delay para diminuir a velocidade do jogo
 			janela.update();  //Atualiza a janela

@@ -15,7 +15,7 @@ public class ControleJogador extends ControleAtor{
 	
 	//atributos
 	private double energia = 200;
-	private double pontuacao = 0;
+	private double pontuacao = 3000;
 	//PORTAS: 0 -> porta de cima / 1 -> porta de baixo
 	private boolean[] portas = {false, false};
 	//ARMAS: 1 -> PISTOLA / 2 -> FUZIL / 3 -> ESPINGARDA\
@@ -81,6 +81,7 @@ public class ControleJogador extends ControleAtor{
 		//Abre a tela final do jogo caso o jogador fique sem vida
 		if(this.energia <= 0) {
 			ControleSom.playMorte("AudioMorteJogador.wav");
+			ControleSom.stop();
 			ControleSom.playMusica("AudioMenu.wav");
 			this.pontuacao += ControleMapa.getRodada();
 			new InterfaceJanelaMorte(pontuacao, janela);

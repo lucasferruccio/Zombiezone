@@ -33,23 +33,20 @@ public class ControleBala extends Sprite  {
 	}
 	
 	//Cria os tiros
-	public static void criarTiro(double x, double y, int caminho, Scene cena,int arma) {
+	public static void criarTiro(double x, double y, int caminho, Scene cena, int arma) {
 		int municoes;
 		ControleBala tiro;
 		
 		//Pega
 		if (arma == 2) {
 			
-			tiro = new ControleTiroFuzil(x,y, caminho);
 			municoes = ControleTiroFuzil.getMunicoes();
 		} else if (arma == 3) {
 			
-			tiro = new ControleTiroEspingarda(x,y, caminho);
 			municoes = ControleTiroEspingarda.getMunicoes();
 		}
 		else {
-			
-			tiro = new ControleTiroPistola(x,y, caminho);
+
 			municoes = ControleTiroPistola.getMunicoes();
 		}
 		if (municoes > 0) {

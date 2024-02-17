@@ -14,7 +14,6 @@ public class InterfaceMenu {
 	//Construtor
 	public InterfaceMenu(Window janela) {
 		this.janela = janela;
-		this.teclado = new Keyboard();
 		this.teclado = janela.getKeyboard(); //Reconhece o teclado
 		this.plano = new GameImage("src/recursos/cenarios/menu.png"); //Adiciona uma imgaem de fundo
 		run();
@@ -22,7 +21,6 @@ public class InterfaceMenu {
 	
 	//Loop do menu
 	public void run() {
-		teclado.addKey(Keyboard.ENTER_KEY);
 		
 		while (true) {
 			plano.draw();

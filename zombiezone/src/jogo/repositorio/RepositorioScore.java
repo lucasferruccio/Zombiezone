@@ -9,7 +9,7 @@ import java.io.FileWriter;
 
 public class RepositorioScore {
 	//Atributos
-	private static String[]nomes = new String[10];
+	private static String[] nomes = new String[10];
 	private static double[] pontuacoes = new double[10];
 	private static String caminhoDoArquivo = "src/recursos/pontuacao/tabela.txt";
 	

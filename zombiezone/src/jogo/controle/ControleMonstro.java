@@ -39,7 +39,6 @@ public class ControleMonstro extends ControleAtor{
 		for (int j = 0; j < monstros.size(); j++) {
 			ControleMonstro monstro = monstros.get(j);
 			if (!this.equals(monstro) && this.collided(monstro)){
-				//System.out.println("Colidindo");
 				this.velocidade = 1;
 				if (this.x == monstro.x && this.y == monstro.y) {
 					this.x += 40;
